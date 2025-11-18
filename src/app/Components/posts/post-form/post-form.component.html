@@ -1,0 +1,45 @@
+<div style="margin-left: auto; margin-right: auto">
+  <p id="postFeedback"></p>
+</div>
+<div>
+  <!-- TODO 14 -->
+  <div>
+    <p id="postFeedback"></p>
+  </div>
+  
+  <h1>{{ isUpdateMode ? 'Editar Post' : 'Crear Post' }}</h1>
+  
+  <form [formGroup]="postForm" (ngSubmit)="savePost()" novalidate>
+    <div class="form-group">
+      <label for="title">Título</label>
+      <input id="title" formControlName="title" type="text" class="form-control" />
+    </div>
+  
+    <div class="form-group">
+      <label for="description">Descripción</label>
+      <textarea id="description" formControlName="description" class="form-control"></textarea>
+    </div>
+  
+    <div class="form-group">
+      <label for="publication_date">Fecha de publicación</label>
+      <input id="publication_date" formControlName="publication_date" type="date" class="form-control" />
+    </div>
+  
+    <div class="form-group">
+      <label for="categoriesSelected">Categorías</label>
+      <select
+        id="categoriesSelected"
+        formControlName="categoriesSelected"
+        class="form-control"
+        multiple
+      >
+        <option *ngFor="let c of categories" [value]="c.categoryId">{{ c.title }}</option>
+      </select>
+    </div>
+  
+    <button type="submit" class="btn btn-primary" [disabled]="!postForm.valid">
+      {{ isUpdateMode ? 'Actualizar' : 'Guardar' }}
+    </button>
+  </form>
+  
+</div>

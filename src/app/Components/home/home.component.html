@@ -1,0 +1,51 @@
+<!-- TODO 3 -->
+<div class="container">
+  <h1 class="mb-4 text-center">Últimos posts</h1>
+
+  <div *ngIf="!posts || posts.length === 0" class="alert alert-info text-center">
+    No hay posts disponibles por el momento.
+  </div>
+
+  <div *ngFor="let post of posts" class="card mb-4 shadow-sm">
+    <div class="card-body">
+      <h2 class="card-title">{{ post.title }}</h2>
+      <p class="card-text">{{ post.description }}</p>
+
+      <div class="text-muted mb-2">
+        Publicado el: {{ post.publication_date | date: 'dd/MM/yyyy' }}  
+        — Autor: <strong>{{ post.userAlias }}</strong>
+      </div>
+
+      <div class="mb-2">
+        <span
+          *ngFor="let category of post.categories"
+          class="badge me-2"
+          [ngStyle]="{ 'background-color': category.css_color, color: 'white' }"
+        >
+          {{ category.title }}
+        </span>
+      </div>
+
+     
+      <div class="d-flex align-items-center mb-2">
+        <span class="me-3"> {{ post.num_likes }}</span>
+        <span class="me-3"> {{ post.num_dislikes }}</span>
+      </div>
+
+      <div *ngIf="showButtons" class="mt-3 text-center">
+        <button
+          class="btn btn-success me-2"
+          (click)="like(post.id || post.id)"
+        >
+           Like
+        </button>
+        <button
+          class="btn btn-danger"
+          (click)="dislike(post.id || post.id)"
+        >
+          Dislike
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

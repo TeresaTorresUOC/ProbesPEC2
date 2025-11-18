@@ -1,0 +1,49 @@
+<div style="margin-left: auto; margin-right: auto">
+  <p id="registerFeedback"></p>
+</div>
+<div>
+  <h1>Register</h1>
+
+  <!-- TODO 18 -->
+  <div id="registerFeedback"></div>
+
+<form [formGroup]="registerForm" (ngSubmit)="register()" novalidate>
+  <div class="form-group">
+    <label for="name">Nombre</label>
+    <input id="name" formControlName="name" type="text" class="form-control" />
+  </div>
+
+  <div class="form-group">
+    <label for="surname_1">Primer apellido</label>
+    <input id="surname_1" formControlName="surname_1" type="text" class="form-control" />
+  </div>
+
+  <div class="form-group">
+    <label for="surname_2">Segundo apellido</label>
+    <input id="surname_2" formControlName="surname_2" type="text" class="form-control" />
+  </div>
+
+  <div class="form-group">
+    <label for="alias">Alias</label>
+    <input id="alias" formControlName="alias" type="text" class="form-control" />
+  </div>
+
+  <div class="form-group">
+    <label for="birth_date">Fecha de nacimiento</label>
+    <input id="birth_date" formControlName="birth_date" type="date" class="form-control" />
+  </div>
+
+  <div class="form-group">
+    <label for="email">Correo electrónico</label>
+    <input id="email" formControlName="email" type="email" class="form-control" />
+  </div>
+
+  <div class="form-group">
+    <label for="password">Contraseña</label>
+    <input id="password" formControlName="password" type="password" class="form-control" />
+  </div>
+
+  <button type="submit" class="btn btn-primary" [disabled]="!registerForm.valid">Registrarse</button>
+</form>
+
+</div>

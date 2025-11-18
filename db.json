@@ -1,0 +1,132 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "Anna",
+      "email": "anna@example.com",
+      "password": "123456",
+      "birth_date": "1990-01-01"
+    },
+    {
+      "id": "8df1",
+      "name": "Paula",
+      "surname_1": "Gomez",
+      "surname_2": "Gutierrez",
+      "alias": "paula2",
+      "email": "paula@example.com",
+      "password": "Test1234",
+      "birth_date": "1992-05-10T00:00:00.000Z"
+    },
+    {
+      "id": "f2a6",
+      "name": "Teresa",
+      "email": "teresatorrestorres@hotmail.com",
+      "password": "Elartedelmar3$",
+      "birth_date": "2025-11-07"
+    },
+    {
+      "id": "eb5f",
+      "name": "Teresa",
+      "email": "teresatorrestorres@hotmail.com",
+      "password": "Elartedelmar3$",
+      "birth_date": "2025-11-07"
+    },
+    {
+      "id": "290e",
+      "name": "Tersa",
+      "email": "teresatorrestorres@hotmail.com",
+      "password": "Elartedelmar3",
+      "birth_date": "2025-11-07"
+    },
+    {
+      "id": "6cfc",
+      "name": "Maria",
+      "email": "root@root.es",
+      "password": "Elartedelmar3$",
+      "birth_date": "2025-11-07"
+    },
+    {
+      "id": "5130",
+      "name": "carla",
+      "email": "root@root.com",
+      "password": "Elartedelmar3$",
+      "birth_date": "2025-11-07"
+    }
+  ],
+  "posts": [
+    {
+      "id": 1,
+      "title": "Primer post",
+      "description": "Això és un post de prova.",
+      "num_likes": 0,
+      "num_dislikes": 0,
+      "publication_date": "2025-11-07",
+      "userId": 1
+    },
+    {
+      "id": "c869",
+      "title": "asadas",
+      "description": "dadasdssddfd",
+      "publication_date": "2025-11-07",
+      "categoriesSelected": [
+        null
+      ]
+    },
+    {
+      "id": "27c6",
+      "title": "sdsds",
+      "description": "dsps",
+      "publication_date": "2025-11-10",
+      "categoriesSelected": [
+        null
+      ],
+      "userId": null,
+      "num_likes": 0,
+      "num_dislikes": 0
+    }
+  ],
+  "categories": [
+    {
+      "title": "socialX",
+      "description": "social",
+      "css_color": "#000300",
+      "userId": "d32c7539-e52d-408f-8d03-2d0583b498a2",
+      "id": "1"
+    },
+    {
+      "id": "3bb0",
+      "title": "rata",
+      "description": "apestosa",
+      "css_color": "#F0F8FF",
+      "userId": "6cfc"
+    },
+    {
+      "id": "7f72",
+      "title": "Rata",
+      "description": "apestos",
+      "css_color": "#Fff834",
+      "userId": "6cfc"
+    },
+    {
+      "id": "1fc1",
+      "title": "social",
+      "description": "social2",
+      "css_color": "#000000",
+      "userId": "d32c7539-e52d-408f-8d03-2d0583b498a2"
+    },
+    {
+      "id": "0145",
+      "title": "hola",
+      "description": "José",
+      "css_color": "#0000f",
+      "userId": "6cfc"
+    },
+    {
+      "id": "e8f3",
+      "title": "dsfs",
+      "description": "dsfdf",
+      "css_color": "#d233",
+      "userId": "6cfc"
+    }
+  ]
+}

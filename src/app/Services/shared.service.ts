@@ -19,7 +19,7 @@ export class SharedService {
   async managementToast(
     element: string,
     validRequest: boolean,
-    error?: ResponseError
+    error?: ResponseError| string
   ): Promise<void> {
     const toastMsg = document.getElementById(element);
     if (toastMsg) {
@@ -30,28 +30,34 @@ export class SharedService {
         toastMsg.className = toastMsg.className.replace('show', '');
       } else {
         toastMsg.className = 'show requestKo';
-        if (error?.messageDetail) {
-          toastMsg.textContent =
-            'Error on form submitted, show logs. Message: ' +
-            error?.message +
-            '. Message detail: ' +
-            error?.messageDetail +
-            '. Status code: ' +
-            error?.statusCode;
-        } else {
-          toastMsg.textContent =
-            'Error on form submitted, show logs. Message: ' +
-            error?.message +
-            '. Status code: ' +
-            error?.statusCode;
-        }
+        toastMsg.textContent = this.buildErrorMessage(error); 
 
         await this.wait(2500);
         toastMsg.className = toastMsg.className.replace('show', '');
       }
     }
   }
+  private buildErrorMessage(error?: ResponseError | string): string {
+    const defaultMsg = 'Error on form submitted. Please, check the logs.';
 
+    if (!error) {
+      return defaultMsg;
+    }
+
+    if (typeof error === 'string') {
+      return error;
+    }
+
+    const message = error.message ?? 'Unexpected error.';
+    const messageDetail = error.messageDetail
+      ? ` Message detail: ${error.messageDetail}.`
+      : '';
+    const statusCode = error.statusCode
+      ? ` Status code: ${error.statusCode}.`
+      : '';
+
+    return `${message}${messageDetail}${statusCode}`;
+  }
   errorLog(error: ResponseError): void {
     console.error('path:', error.path);
     console.error('timestamp:', error.timestamp);

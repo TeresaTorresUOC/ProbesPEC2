@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { formatDate } from '@angular/common';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, } from '@angular/forms';
+import {FormBuilder,FormGroup,Validators,ReactiveFormsModule,} from '@angular/forms';
 import { HeaderMenusService } from '../../Services/header-menus.service';
 import { SharedService } from '../../Services/shared.service';
 import { UserService } from '../../Services/user.service';
 import { HeaderMenus } from '../../Models/header-menus.dto';
+import { optionalMinLengthValidator } from '../../Validators/optional-min-length.validator';
 
 
 import { forkJoin, EMPTY } from 'rxjs';
@@ -33,6 +34,9 @@ export class RegisterComponent implements OnInit {
     this.registerForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
+      surname_1: ['', [Validators.required, Validators.minLength(3)]],
+      surname_2: ['', [optionalMinLengthValidator(3)]],
+      alias: ['', [Validators.required, Validators.minLength(3)]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       birth_date: [formatDate(new Date(), 'yyyy-MM-dd', 'en')],
     });
@@ -41,7 +45,12 @@ export class RegisterComponent implements OnInit {
   register(): void {
     if (this.registerForm.invalid) {
       this.isValidForm = false;
-      this.sharedService.managementToast('registerFeedback', false, undefined);
+      this.registerForm.markAllAsTouched();
+      this.sharedService.managementToast(
+        'registerFeedback',
+        false,
+        'Revisa los campos obligatorios e inténtalo de nuevo.'
+      );
       return;
     }
 
@@ -57,13 +66,23 @@ export class RegisterComponent implements OnInit {
         switchMap(({ emailUsers, nameUsers }) => {
     
           if (emailUsers.length > 0) {
-            this.sharedService.managementToast('registerFeedback', false, undefined);
-      
+            this.isValidForm = false;
+            this.sharedService.managementToast(
+              'registerFeedback',
+              false,
+              'El correo electrónico ya está registrado.'
+            );
+
             return EMPTY;
           }
 
           if (nameUsers.length > 0) {
-            this.sharedService.managementToast('registerFeedback', false, undefined);
+            this.isValidForm = false;
+            this.sharedService.managementToast(
+              'registerFeedback',
+              false,
+              'El nombre de usuario ya está en uso.'
+            );
             return EMPTY;
           }
 
@@ -74,6 +93,12 @@ export class RegisterComponent implements OnInit {
         next: () => {
           this.sharedService.managementToast('registerFeedback', true, undefined);
           this.registerForm.reset({
+            name: '',
+            surname_1: '',
+            surname_2: '',
+            alias: '',
+            email: '',
+            password: '',
             birth_date: formatDate(new Date(), 'yyyy-MM-dd', 'en'),
           });
           this.router.navigateByUrl('home');

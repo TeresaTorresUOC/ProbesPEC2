@@ -7,6 +7,7 @@ import { UserDTO } from '../../Models/user.dto';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app.reducer';
 import { selectUserId } from '../../auth/selectors/auth.selectors';
+import { optionalMinLengthValidator } from '../../Validators/optional-min-length.validator';
 
 @Component({
   selector: 'app-profile',
@@ -37,7 +38,7 @@ export class ProfileComponent implements OnInit {
 
     this.name = new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(25)]);
     this.surname_1 = new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(25)]);
-    this.surname_2 = new FormControl('', [Validators.minLength(5), Validators.maxLength(25)]);
+    this.surname_2 = new FormControl('', [optionalMinLengthValidator(5), Validators.maxLength(25)]);
     this.alias = new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(25)]);
     this.birth_date = new FormControl('', [Validators.required]);
     this.email = new FormControl('', [Validators.required, Validators.email]);

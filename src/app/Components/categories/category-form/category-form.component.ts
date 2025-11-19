@@ -23,7 +23,7 @@ export class CategoryFormComponent implements OnInit {
   private isUpdateMode: boolean;
   private validRequest: boolean;
   private categoryId: string | null;
-  private userId: number | null = null;
+  private userId: string | null = null;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -58,7 +58,7 @@ export class CategoryFormComponent implements OnInit {
       css_color: this.css_color,
     });
 
-    // Obtenim el userId del store
+    
     this.store.select(selectUserId).subscribe((id) => (this.userId = id ?? null));
   }
 

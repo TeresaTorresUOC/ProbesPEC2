@@ -1,11 +1,35 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { AuthDTO } from '../models/auth.dto';
+
+interface UserRecord {
+  id: string;
+  email: string;
+  password: string;
+}
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
+  private readonly urlBlogUocApi = 'http://localhost:3000/users';
+
+  constructor(private http: HttpClient) {}
   login(credentials: { email: string; password: string }): Observable<AuthDTO> {
+    const email = encodeURIComponent(credentials.email);
+    const password = encodeURIComponent(credentials.password);
   
-    return of(new AuthDTO(1, 'fake_access_token'));
+    return this.http
+      .get<UserRecord[]>(`${this.urlBlogUocApi}?email=${email}&password=${password}`)
+      .pipe(
+        map((users) => {
+          if (!users.length) {
+            throw new Error('Credencials incorrectes');
+          }
+  
+          const user = users[0];
+          return new AuthDTO(user.id, `fake-jwt-token-${user.id}`);
+        })
+      );
   }
-}
+}  

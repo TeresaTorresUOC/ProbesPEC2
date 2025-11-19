@@ -23,7 +23,7 @@ export class PostFormComponent implements OnInit {
   isUpdateMode: boolean = false;
   postId!: string;
   validRequest: boolean = false;
-  userId!: number;
+  userId!: string;
 
   title: FormControl;
   description: FormControl;

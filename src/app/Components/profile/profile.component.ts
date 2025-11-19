@@ -24,7 +24,7 @@ export class ProfileComponent implements OnInit {
   password: FormControl;
   profileForm: FormGroup;
   isValidForm: boolean | null;
-  userId!: number;
+  userId!: string;
 
   constructor(
     private formBuilder: UntypedFormBuilder,

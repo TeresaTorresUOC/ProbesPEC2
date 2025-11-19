@@ -8,7 +8,7 @@ import { AuthDTO } from '../models/auth.dto';
   );
   export const login = createAction(
     '[Auth] Login',
-    props<{ userId: number; access_token: string }>()
+    props<{ userId: string; access_token: string }>()
   );
   
   export const loginSuccess = createAction(

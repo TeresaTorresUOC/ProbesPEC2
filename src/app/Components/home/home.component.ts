@@ -15,7 +15,7 @@ import { selectAuthState } from '../../auth/selectors/auth.selectors';
 export class HomeComponent implements OnInit {
   posts!: PostDTO[];
   showButtons: boolean = false;
-  private userId: number | null = null;
+  private userId: string | null = null;
 
   constructor(
     private postService: PostService,

@@ -72,7 +72,7 @@ export class CategoryFormComponent implements OnInit {
           this.description.setValue(this.category.description);
           this.css_color.setValue(this.category.css_color);
         },
-        error: (error) => this.sharedService.errorLog(error.error),
+        error: (error) => this.sharedService.errorLog(error),
       });
     }
   }
@@ -88,7 +88,7 @@ export class CategoryFormComponent implements OnInit {
         },
         error: (error) => {
           this.validRequest = false;
-          this.sharedService.errorLog(error.error);
+          this.sharedService.errorLog(error);
         },
       });
     }
@@ -105,7 +105,7 @@ export class CategoryFormComponent implements OnInit {
         },
         error: (error) => {
           this.validRequest = false;
-          this.sharedService.errorLog(error.error);
+          this.sharedService.errorLog(error);
         },
       });
     }

@@ -51,11 +51,21 @@
       "email": "root@root.com",
       "password": "Elartedelmar3$",
       "birth_date": "2025-11-07"
+    },
+    {
+      "id": "732a",
+      "name": "Pablo",
+      "email": "lola@root.com",
+      "surname_1": "lola ",
+      "surname_2": "",
+      "alias": "Lola",
+      "password": "Lola3R",
+      "birth_date": "2025-07-10"
     }
   ],
   "posts": [
     {
-      "id": 1,
+      "id": "1",
       "title": "Primer post",
       "description": "Això és un post de prova.",
       "num_likes": 0,
@@ -70,7 +80,8 @@
       "publication_date": "2025-11-07",
       "categoriesSelected": [
         null
-      ]
+      ],
+      "userId": "8df1"
     },
     {
       "id": "27c6",
@@ -127,6 +138,13 @@
       "description": "dsfdf",
       "css_color": "#d233",
       "userId": "6cfc"
+    },
+    {
+      "id": "86af",
+      "title": "asad",
+      "description": "dsadsa",
+      "css_color": "#21323",
+      "userId": "8df1"
     }
   ]
 }

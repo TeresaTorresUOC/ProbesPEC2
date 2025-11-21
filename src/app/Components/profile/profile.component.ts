@@ -72,7 +72,7 @@ export class ProfileComponent implements OnInit {
             email: userData.email,
           });
         },
-        error: (error) => this.sharedService.errorLog(error.error),
+        error: (error) => this.sharedService.errorLog(error),
       });
     }
   }
@@ -89,9 +89,8 @@ export class ProfileComponent implements OnInit {
           this.sharedService.managementToast('profileFeedback', true, undefined);
         },
         error: (error) => {
-          const errorResponse = error.error;
-          this.sharedService.errorLog(errorResponse);
-          this.sharedService.managementToast('profileFeedback', false, errorResponse);
+          this.sharedService.errorLog(error);
+          this.sharedService.managementToast('profileFeedback', false, error);
         },
       });
     }

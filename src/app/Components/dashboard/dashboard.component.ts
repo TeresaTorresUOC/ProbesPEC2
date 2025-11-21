@@ -34,7 +34,7 @@ export class DashboardComponent implements OnInit {
         );
       },
       error: (error) => {
-        this.sharedService.errorLog(error.error);
+        this.sharedService.errorLog(error);
       },
     });
   }

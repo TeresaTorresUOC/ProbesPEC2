@@ -104,14 +104,14 @@ export class RegisterComponent implements OnInit {
           this.router.navigateByUrl('home');
         },
         error: (error) => {
-          const errorResponse = error.error;
+      
           const headerInfo: HeaderMenus = {
             showAuthSection: false,
             showNoAuthSection: true,
           };
           this.headerMenusService.headerManagement.next(headerInfo);
-          this.sharedService.errorLog(errorResponse);
-          this.sharedService.managementToast('registerFeedback', false, errorResponse);
+          this.sharedService.errorLog(error);
+          this.sharedService.managementToast('registerFeedback', false, error);
         },
       });
   }

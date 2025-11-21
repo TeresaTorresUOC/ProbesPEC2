@@ -29,7 +29,7 @@ export class CategoriesListComponent {
       if (userId) {
         this.categoryService.getCategoriesByUserId(userId).subscribe({
           next: (categories) => (this.categories = categories),
-          error: (error) => this.sharedService.errorLog(error.error),
+          error: (error) => this.sharedService.errorLog(error),
         });
       }
     });
@@ -55,8 +55,8 @@ export class CategoriesListComponent {
         this.loadCategories();
       },
       error: (error) => {
-        this.sharedService.managementToast('categoryFeedback', false, error.error);
-        this.sharedService.errorLog(error.error);
+        this.sharedService.managementToast('categoryFeedback', false, error);
+        this.sharedService.errorLog(error);
       },
     });
   }

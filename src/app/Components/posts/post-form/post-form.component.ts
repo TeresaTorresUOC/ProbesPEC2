@@ -72,7 +72,7 @@ export class PostFormComponent implements OnInit {
     if (this.userId) {
       this.categoryService.getCategoriesByUserId(this.userId).subscribe({
         next: (categories) => (this.categories = categories),
-        error: (error) => this.sharedService.errorLog(error.error),
+        error: (error) => this.sharedService.errorLog(error),
       });
     }
   }
@@ -85,7 +85,7 @@ export class PostFormComponent implements OnInit {
         this.publication_date.setValue(formatDate(postData.publication_date, 'yyyy-MM-dd', 'en'));
         this.categoriesSelected.setValue(postData.categories.map((c) => c.categoryId));
       },
-      error: (error) => this.sharedService.errorLog(error.error),
+      error: (error) => this.sharedService.errorLog(error),
     });
   }
 
@@ -100,8 +100,8 @@ export class PostFormComponent implements OnInit {
       },
       error: (error) => {
         this.validRequest = false;
-        this.sharedService.errorLog(error.error);
-        this.sharedService.managementToast('postFeedback', false, error.error);
+        this.sharedService.errorLog(error);
+        this.sharedService.managementToast('postFeedback', false, error);
       },
     });
   }
@@ -124,8 +124,8 @@ export class PostFormComponent implements OnInit {
       },
       error: (error) => {
         this.validRequest = false;
-        this.sharedService.errorLog(error.error);
-        this.sharedService.managementToast('postFeedback', false, error.error);
+        this.sharedService.errorLog(error);
+        this.sharedService.managementToast('postFeedback', false, error);
       },
     });
   }

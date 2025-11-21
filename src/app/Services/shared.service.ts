@@ -1,14 +1,17 @@
 import { Injectable } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
 
 export interface ResponseError {
-  statusCode: number;
-  message: string;
-  messageDetail: string;
-  code: string;
-  timestamp: string;
-  path: string;
-  method: string;
+  statusCode?: number;
+  message?: string;
+  messageDetail?: string;
+  code?: string;
+  timestamp?: string;
+  path?: string;
+  method?: string;
 }
+type ToastError = ResponseError | string | HttpErrorResponse | ProgressEvent | null | undefined;
+
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +22,7 @@ export class SharedService {
   async managementToast(
     element: string,
     validRequest: boolean,
-    error?: ResponseError| string
+    error?: ToastError
   ): Promise<void> {
     const toastMsg = document.getElementById(element);
     if (toastMsg) {
@@ -37,7 +40,7 @@ export class SharedService {
       }
     }
   }
-  private buildErrorMessage(error?: ResponseError | string): string {
+  private buildErrorMessage(error?: ToastError): string {
     const defaultMsg = 'Error on form submitted. Please, check the logs.';
 
     if (!error) {
@@ -47,6 +50,18 @@ export class SharedService {
     if (typeof error === 'string') {
       return error;
     }
+    if (error instanceof HttpErrorResponse) {
+      if (error.status === 0) {
+        return 'No se pudo conectar con el servidor. ¿Está la API en ejecución?';
+      }
+
+      return this.buildErrorMessage(error.error || error.message);
+    }
+
+    if (error instanceof ProgressEvent) {
+      return 'No se pudo conectar con el servidor. Comprueba tu conexión o que la API esté activa.';
+    }
+
 
     const message = error.message ?? 'Unexpected error.';
     const messageDetail = error.messageDetail
@@ -58,13 +73,37 @@ export class SharedService {
 
     return `${message}${messageDetail}${statusCode}`;
   }
-  errorLog(error: ResponseError): void {
-    console.error('path:', error.path);
-    console.error('timestamp:', error.timestamp);
-    console.error('message:', error.message);
-    console.error('messageDetail:', error.messageDetail);
-    console.error('statusCode:', error.statusCode);
+  errorLog(error: ToastError): void {
+    if (!error) {
+      console.error('Unknown error.');
+      return;
   }
+  if (error instanceof HttpErrorResponse) {
+    console.error('url:', error.url ?? 'N/A');
+    console.error('status:', error.status);
+    console.error('message:', error.message);
+    if (error.error && error.error !== error.message) {
+      this.errorLog(error.error as ToastError);
+    }
+    return;
+  }
+
+  if (error instanceof ProgressEvent) {
+    console.error('Network error:', error.type);
+    return;
+  }
+
+  if (typeof error === 'string') {
+    console.error('message:', error);
+    return;
+  }
+
+  console.error('path:', error.path ?? 'N/A');
+  console.error('timestamp:', error.timestamp ?? 'N/A');
+  console.error('message:', error.message ?? 'N/A');
+  console.error('messageDetail:', error.messageDetail ?? 'N/A');
+  console.error('statusCode:', error.statusCode ?? 'N/A');
+}
 
   async wait(ms: number) {
     return new Promise((resolve) => {

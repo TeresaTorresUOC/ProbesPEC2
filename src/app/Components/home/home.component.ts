@@ -39,7 +39,7 @@ export class HomeComponent implements OnInit {
   private loadPosts(): void {
     this.postService.getPosts().subscribe({
       next: (posts) => (this.posts = posts),
-      error: (error) => this.sharedService.errorLog(error.error),
+      error: (error) => this.sharedService.errorLog(error),
     });
   }
 
@@ -48,7 +48,7 @@ export class HomeComponent implements OnInit {
 
     this.postService.likePost(postId).subscribe({
       next: () => this.loadPosts(),
-      error: (error) => this.sharedService.errorLog(error.error),
+      error: (error) => this.sharedService.errorLog(error),
     });
   }
 
@@ -57,7 +57,7 @@ export class HomeComponent implements OnInit {
 
     this.postService.dislikePost(postId).subscribe({
       next: () => this.loadPosts(),
-      error: (error) => this.sharedService.errorLog(error.error),
+      error: (error) => this.sharedService.errorLog(error),
     });
   }
 }

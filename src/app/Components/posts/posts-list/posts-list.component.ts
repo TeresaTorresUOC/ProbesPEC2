@@ -29,7 +29,7 @@ export class PostsListComponent {
       if (userId) {
         this.postService.getPostsByUserId(userId.toString()).subscribe({
           next: (posts) => (this.posts = posts),
-          error: (error) => this.sharedService.errorLog(error.error),
+          error: (error) => this.sharedService.errorLog(error),
         });
       }
     });
@@ -53,8 +53,8 @@ export class PostsListComponent {
         this.loadPosts();
       },
       error: (error) => {
-        this.sharedService.managementToast('postFeedback', false, error.error);
-        this.sharedService.errorLog(error.error);
+        this.sharedService.managementToast('postFeedback', false, error);
+        this.sharedService.errorLog(error);
       },
     });
   }

@@ -5,6 +5,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -25,6 +28,7 @@ import { CategoryFormComponent } from './Components/categories/category-form/cat
 import { PostsListComponent } from './Components/posts/posts-list/posts-list.component';
 import { PostFormComponent } from './Components/posts/post-form/post-form.component';
 import { ProfileComponent } from './Components/profile/profile.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -45,6 +49,7 @@ import { ProfileComponent } from './Components/profile/profile.component';
 
     
     CommonModule,
+    BrowserAnimationsModule,
 
    
     FormsModule,
@@ -63,6 +68,11 @@ import { ProfileComponent } from './Components/profile/profile.component';
 
     
     AuthModule,
+          BrowserAnimationsModule,
+          MatFormFieldModule,
+          MatInputModule,
+          MatButtonModule,
+          AuthModule,
   ],
   providers: [
     {

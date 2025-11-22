@@ -29,13 +29,20 @@ export class LoginComponent {
       password: ['', [Validators.required]],
     });
   }
+  get email() {
+    return this.loginForm.get('email');
+  }
 
+  get password() {
+    return this.loginForm.get('password');
+  }
   onSubmit(): void {
-    if (this.loginForm.invalid) return;
-
+    if (this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched();
+      return;
+    }
     const { email, password } = this.loginForm.value;
 
-    
     this.store.dispatch(AuthActions.loginStart({ email, password }));
   }
 }

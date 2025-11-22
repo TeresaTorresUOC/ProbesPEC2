@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators,} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CategoryDTO } from '../../../Models/category.dto';
 import { CategoryService } from '../../../Services/category.service';
@@ -15,7 +15,7 @@ import { selectUserId } from '../../../auth/selectors/auth.selectors';
 })
 export class CategoryFormComponent implements OnInit {
   category: CategoryDTO;
-  title: UntypedFormControl;
+  name: UntypedFormControl;
   description: UntypedFormControl;
   css_color: UntypedFormControl;
   categoryForm: UntypedFormGroup;
@@ -39,21 +39,20 @@ export class CategoryFormComponent implements OnInit {
     this.isUpdateMode = false;
     this.validRequest = false;
 
-    this.title = new UntypedFormControl(this.category.title, [
+    this.name = new UntypedFormControl(this.category.title, [
       Validators.required,
-      Validators.maxLength(55),
     ]);
     this.description = new UntypedFormControl(this.category.description, [
       Validators.required,
-      Validators.maxLength(255),
+      Validators.minLength(5),
     ]);
     this.css_color = new UntypedFormControl(this.category.css_color, [
       Validators.required,
-      Validators.maxLength(7),
+      Validators.pattern(/^#([A-Fa-f0-9]{6})$/),
     ]);
 
     this.categoryForm = this.formBuilder.group({
-      title: this.title,
+      name: this.name,
       description: this.description,
       css_color: this.css_color,
     });
@@ -61,6 +60,9 @@ export class CategoryFormComponent implements OnInit {
     
     this.store.select(selectUserId).subscribe((id) => (this.userId = id ?? null));
   }
+  get showErrors(): boolean { return this.isValidForm === false || this.categoryForm.touched;
+  }
+
 
   ngOnInit(): void {
     if (this.categoryId) {
@@ -68,7 +70,7 @@ export class CategoryFormComponent implements OnInit {
       this.categoryService.getCategoryById(this.categoryId).subscribe({
         next: (category) => {
           this.category = category;
-          this.title.setValue(this.category.title);
+          this.name.setValue(this.category.title);
           this.description.setValue(this.category.description);
           this.css_color.setValue(this.category.css_color);
         },
@@ -79,7 +81,14 @@ export class CategoryFormComponent implements OnInit {
 
   private editCategory(): void {
     if (this.categoryId && this.userId) {
-      const updatedCategory = { id: this.categoryId, ...this.categoryForm.value, userId: this.userId };
+      const { name, description, css_color } = this.categoryForm.value;
+      const updatedCategory: CategoryDTO = {
+        categoryId: this.categoryId,
+        title: name,
+        description,
+        css_color,
+        userId: this.userId,
+      };
       this.categoryService.updateCategory(this.categoryId, updatedCategory).subscribe({
         next: () => {
           this.validRequest = true;
@@ -96,7 +105,14 @@ export class CategoryFormComponent implements OnInit {
 
   private createCategory(): void {
     if (this.userId) {
-      const newCategory = { ...this.categoryForm.value, userId: this.userId };
+      const { name, description, css_color } = this.categoryForm.value;
+      const newCategory: CategoryDTO = {
+        categoryId: '',
+        title: name,
+        description,
+        css_color,
+        userId: this.userId,
+      };
       this.categoryService.createCategory(newCategory).subscribe({
         next: () => {
           this.validRequest = true;

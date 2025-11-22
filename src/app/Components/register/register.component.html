@@ -2,11 +2,13 @@
 <div class="register-container">
   <h1 class="title">Register</h1>
   <!-- TODO 18 -->
+
   <div id="registerFeedback"></div>
+
   <form [formGroup]="registerForm" (ngSubmit)="register()" class="register-form" novalidate>
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Nombre</mat-label>
-      <input matInput id="name" formControlName="name" type="text" />
+      <input matInput id="name" formControlName="name" type="text" autocomplete="name" />
       <mat-error *ngIf="registerForm.get('name')?.hasError('required')">
         El nombre es obligatorio.
       </mat-error>
@@ -17,7 +19,13 @@
 
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Primer apellido</mat-label>
-      <input matInput id="surname_1" formControlName="surname_1" type="text" />
+      <input
+        matInput
+        id="surname_1"
+        formControlName="surname_1"
+        type="text"
+        autocomplete="family-name"
+      />
       <mat-error *ngIf="registerForm.get('surname_1')?.hasError('required')">
         El primer apellido es obligatorio.
       </mat-error>
@@ -28,7 +36,13 @@
 
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Segundo apellido</mat-label>
-      <input matInput id="surname_2" formControlName="surname_2" type="text" />
+      <input
+        matInput
+        id="surname_2"
+        formControlName="surname_2"
+        type="text"
+        autocomplete="additional-name"
+      />
       <mat-error *ngIf="registerForm.get('surname_2')?.hasError('minlength')">
         El segundo apellido debe tener al menos 3 caracteres.
       </mat-error>
@@ -36,7 +50,7 @@
 
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Alias</mat-label>
-      <input matInput id="alias" formControlName="alias" type="text" />
+      <input matInput id="alias" formControlName="alias" type="text" autocomplete="username" />
       <mat-error *ngIf="registerForm.get('alias')?.hasError('required')">
         El alias es obligatorio.
       </mat-error>
@@ -47,7 +61,7 @@
 
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Fecha de nacimiento</mat-label>
-      <input matInput id="birth_date" formControlName="birth_date" type="date" />
+      <input matInput id="birth_date" formControlName="birth_date" type="date" autocomplete="bday" />
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="full-width">
@@ -63,7 +77,13 @@
 
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Contraseña</mat-label>
-      <input matInput id="password" formControlName="password" type="password" autocomplete="new-password" />
+      <input
+        matInput
+        id="password"
+        formControlName="password"
+        type="password"
+        autocomplete="new-password"
+      />
       <mat-error *ngIf="registerForm.get('password')?.hasError('required')">
         La contraseña es obligatoria.
       </mat-error>

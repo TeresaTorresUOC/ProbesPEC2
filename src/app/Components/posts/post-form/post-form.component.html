@@ -1,45 +1,87 @@
-<div style="margin-left: auto; margin-right: auto">
+<div class="post-form-container">
   <p id="postFeedback"></p>
-</div>
-<div>
-  <!-- TODO 14 -->
-  <div>
-    <p id="postFeedback"></p>
-  </div>
-  
-  <h1>{{ isUpdateMode ? 'Editar Post' : 'Crear Post' }}</h1>
-  
-  <form [formGroup]="postForm" (ngSubmit)="savePost()" novalidate>
-    <div class="form-group">
-      <label for="title">Título</label>
-      <input id="title" formControlName="title" type="text" class="form-control" />
-    </div>
-  
-    <div class="form-group">
-      <label for="description">Descripción</label>
-      <textarea id="description" formControlName="description" class="form-control"></textarea>
-    </div>
-  
-    <div class="form-group">
-      <label for="publication_date">Fecha de publicación</label>
-      <input id="publication_date" formControlName="publication_date" type="date" class="form-control" />
-    </div>
-  
-    <div class="form-group">
-      <label for="categoriesSelected">Categorías</label>
-      <select
-        id="categoriesSelected"
-        formControlName="categoriesSelected"
-        class="form-control"
-        multiple
-      >
-        <option *ngFor="let c of categories" [value]="c.categoryId">{{ c.title }}</option>
-      </select>
-    </div>
-  
-    <button type="submit" class="btn btn-primary" [disabled]="!postForm.valid">
-      {{ isUpdateMode ? 'Actualizar' : 'Guardar' }}
-    </button>
-  </form>
-  
+  <mat-card>
+    <mat-card-title>
+      {{ isUpdateMode ? 'Editar Post' : 'Crear Post' }}
+    </mat-card-title>
+
+    <form [formGroup]="postForm" (ngSubmit)="savePost()" novalidate>
+      <mat-card-content>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Título</mat-label>
+          <input
+            matInput
+            id="title"
+            formControlName="title"
+            type="text"
+            placeholder="Título del post"
+          />
+          <mat-error *ngIf="title.hasError('required')">
+            El título es obligatorio.
+          </mat-error>
+          <mat-error *ngIf="title.hasError('maxlength')">
+            El título no puede superar los 55 caracteres.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Descripción</mat-label>
+          <textarea
+            matInput
+            id="description"
+            formControlName="description"
+            rows="4"
+            placeholder="Descripción del post"
+          ></textarea>
+          <mat-error *ngIf="description.hasError('required')">
+            La descripción es obligatoria.
+          </mat-error>
+          <mat-error *ngIf="description.hasError('maxlength')">
+            La descripción no puede superar los 255 caracteres.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Fecha de publicación</mat-label>
+          <input
+            matInput
+            id="publication_date"
+            formControlName="publication_date"
+            type="date"
+          />
+          <mat-error *ngIf="publication_date.hasError('required')">
+            La fecha de publicación es obligatoria.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Categorías</mat-label>
+          <mat-select
+            id="categoriesSelected"
+            formControlName="categoriesSelected"
+            multiple
+            placeholder="Selecciona categorías"
+          >
+            <mat-option *ngFor="let c of categories" [value]="c.categoryId">
+              {{ c.title }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="categoriesSelected.hasError('required')">
+            Selecciona al menos una categoría.
+          </mat-error>
+        </mat-form-field>
+      </mat-card-content>
+
+      <mat-card-actions class="form-actions">
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="postForm.invalid"
+        >
+          {{ isUpdateMode ? 'Actualizar' : 'Guardar' }}
+        </button>
+      </mat-card-actions>
+    </form>
+  </mat-card>
 </div>

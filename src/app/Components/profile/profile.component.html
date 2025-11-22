@@ -1,51 +1,83 @@
-<div style="margin-left: auto; margin-right: auto">
-  <p id="profileFeedback"></p>
-</div>
-<div>
-  <h1>Profile</h1>
+<div class="profile-container">
+  <mat-card>
+    <mat-card-title class="title">Perfil</mat-card-title>
+    <mat-card-content>
+      <div id="profileFeedback"></div>
 
-  <!-- TODO 6 -->
-  <div id="profileFeedback"></div>
+      <form [formGroup]="profileForm" (ngSubmit)="updateUser()" class="profile-form" novalidate>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Nombre</mat-label>
+          <input matInput id="name" formControlName="name" type="text" autocomplete="name" />
+          <mat-error *ngIf="name.hasError('required')">El nombre es obligatorio.</mat-error>
+          <mat-error *ngIf="name.hasError('minlength')">El nombre debe tener al menos 5 caracteres.</mat-error>
+          <mat-error *ngIf="name.hasError('maxlength')">El nombre no puede superar 25 caracteres.</mat-error>
+        </mat-form-field>
 
-<form [formGroup]="profileForm" (ngSubmit)="updateUser()" novalidate>
-  <div class="form-group">
-    <label for="name">Nombre</label>
-    <input id="name" formControlName="name" type="text" class="form-control" />
-  </div>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Primer apellido</mat-label>
+          <input matInput id="surname_1" formControlName="surname_1" type="text" autocomplete="family-name" />
+          <mat-error *ngIf="surname_1.hasError('required')">El primer apellido es obligatorio.</mat-error>
+          <mat-error *ngIf="surname_1.hasError('minlength')">El primer apellido debe tener al menos 5 caracteres.</mat-error>
+          <mat-error *ngIf="surname_1.hasError('maxlength')">El primer apellido no puede superar 25 caracteres.</mat-error>
+        </mat-form-field>
 
-  <div class="form-group">
-    <label for="surname_1">Primer apellido</label>
-    <input id="surname_1" formControlName="surname_1" type="text" class="form-control" />
-  </div>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Segundo apellido</mat-label>
+          <input
+            matInput
+            id="surname_2"
+            formControlName="surname_2"
+            type="text"
+            autocomplete="additional-name"
+          />
+          <mat-error *ngIf="surname_2.hasError('minlength')">
+            El segundo apellido debe tener al menos 5 caracteres.
+          </mat-error>
+          <mat-error *ngIf="surname_2.hasError('maxlength')">
+            El segundo apellido no puede superar 25 caracteres.
+          </mat-error>
+        </mat-form-field>
 
-  <div class="form-group">
-    <label for="surname_2">Segundo apellido</label>
-    <input id="surname_2" formControlName="surname_2" type="text" class="form-control" />
-  </div>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Alias</mat-label>
+          <input matInput id="alias" formControlName="alias" type="text" autocomplete="username" />
+          <mat-error *ngIf="alias.hasError('required')">El alias es obligatorio.</mat-error>
+          <mat-error *ngIf="alias.hasError('minlength')">El alias debe tener al menos 5 caracteres.</mat-error>
+          <mat-error *ngIf="alias.hasError('maxlength')">El alias no puede superar 25 caracteres.</mat-error>
+        </mat-form-field>
 
-  <div class="form-group">
-    <label for="alias">Alias</label>
-    <input id="alias" formControlName="alias" type="text" class="form-control" />
-  </div>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Fecha de nacimiento</mat-label>
+          <input matInput id="birth_date" formControlName="birth_date" type="date" autocomplete="bday" />
+          <mat-error *ngIf="birth_date.hasError('required')">La fecha de nacimiento es obligatoria.</mat-error>
+        </mat-form-field>
 
-  <div class="form-group">
-    <label for="birth_date">Fecha de nacimiento</label>
-    <input id="birth_date" formControlName="birth_date" type="date" class="form-control" />
-  </div>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Correo electrónico</mat-label>
+          <input matInput id="email" formControlName="email" type="email" autocomplete="email" />
+          <mat-error *ngIf="email.hasError('required')">El correo electrónico es obligatorio.</mat-error>
+          <mat-error *ngIf="email.hasError('email')">Introduce un correo electrónico válido.</mat-error>
+        </mat-form-field>
 
-  <div class="form-group">
-    <label for="email">Correo electrónico</label>
-    <input id="email" formControlName="email" type="email" class="form-control" />
-  </div>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Contraseña</mat-label>
+          <input
+            matInput
+            id="password"
+            formControlName="password"
+            type="password"
+            autocomplete="current-password"
+          />
+          <mat-error *ngIf="password.hasError('required')">La contraseña es obligatoria.</mat-error>
+          <mat-error *ngIf="password.hasError('minlength')">La contraseña debe tener al menos 8 caracteres.</mat-error>
+          <mat-error *ngIf="password.hasError('maxlength')">La contraseña no puede superar 16 caracteres.</mat-error>
+        </mat-form-field>
 
-  <div class="form-group">
-    <label for="password">Contraseña</label>
-    <input id="password" formControlName="password" type="password" class="form-control" />
-  </div>
-
-  <button type="submit" class="btn btn-primary" [disabled]="!profileForm.valid">
-    Actualizar perfil
-  </button>
-</form>
+        <button mat-raised-button color="primary" type="submit" [disabled]="profileForm.invalid">
+          Guardar
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
 
 </div>

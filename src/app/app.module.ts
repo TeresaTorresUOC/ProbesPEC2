@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -46,33 +47,24 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   imports: [
     BrowserModule,
     AppRoutingModule,
-
-    
     CommonModule,
     BrowserAnimationsModule,
-
-   
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-
-   
     StoreModule.forRoot(appReducers),
     EffectsModule.forRoot([]),
-
-
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: false,
     }),
 
     
-    AuthModule,
-          BrowserAnimationsModule,
-          MatFormFieldModule,
-          MatInputModule,
-          MatButtonModule,
-          AuthModule,
+    AuthModule,  
+      MatFormFieldModule,
+      MatInputModule,
+      MatButtonModule,
+      MatCardModule,
   ],
   providers: [
     {

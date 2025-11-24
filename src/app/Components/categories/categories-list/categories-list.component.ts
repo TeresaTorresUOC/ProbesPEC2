@@ -6,6 +6,7 @@ import { SharedService } from '../../../Services/shared.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../app.reducer';
 import { selectUserId } from '../../../auth/selectors/auth.selectors';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-categories-list',
@@ -14,6 +15,14 @@ import { selectUserId } from '../../../auth/selectors/auth.selectors';
 })
 export class CategoriesListComponent {
   categories!: CategoryDTO[];
+  displayedColumns: string[] = [
+    'categoryId',
+    'title',
+    'description',
+    'css_color',
+    'actions',
+  ];
+  dataSource = new MatTableDataSource<CategoryDTO>([]);
 
   constructor(
     private categoryService: CategoryService,
@@ -28,7 +37,10 @@ export class CategoriesListComponent {
     this.store.select(selectUserId).subscribe((userId) => {
       if (userId) {
         this.categoryService.getCategoriesByUserId(userId).subscribe({
-          next: (categories) => (this.categories = categories),
+          next: (categories) => {
+            this.categories = categories;
+            this.dataSource.data = categories;
+          },
           error: (error) => this.sharedService.errorLog(error),
         });
       }

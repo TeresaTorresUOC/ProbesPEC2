@@ -10,6 +10,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table';
+import { MatIconModule } from '@angular/material/icon';
 
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -61,12 +63,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     }),
 
     
-    AuthModule,  
+    AuthModule, 
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
     MatCardModule,
     MatSelectModule,
+    MatTableModule,
+    MatIconModule,
   ],
   providers: [
     {

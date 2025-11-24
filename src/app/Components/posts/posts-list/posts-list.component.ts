@@ -6,6 +6,7 @@ import { PostDTO } from '../../../Models/post.dto';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../app.reducer';
 import { selectUserId } from '../../../auth/selectors/auth.selectors';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-posts-list',
@@ -14,6 +15,15 @@ import { selectUserId } from '../../../auth/selectors/auth.selectors';
 })
 export class PostsListComponent {
   posts!: PostDTO[];
+  displayedColumns: string[] = [
+    'id',
+    'title',
+    'description',
+    'num_likes',
+    'num_dislikes',
+    'actions',
+  ];
+  dataSource = new MatTableDataSource<PostDTO>([]);
 
   constructor(
     private postService: PostService,
@@ -28,7 +38,10 @@ export class PostsListComponent {
     this.store.select(selectUserId).subscribe((userId) => {
       if (userId) {
         this.postService.getPostsByUserId(userId.toString()).subscribe({
-          next: (posts) => (this.posts = posts),
+          next: (posts) => {
+            this.posts = posts;
+            this.dataSource.data = posts;
+          },
           error: (error) => this.sharedService.errorLog(error),
         });
       }

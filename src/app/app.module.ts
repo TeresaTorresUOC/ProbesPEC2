@@ -12,7 +12,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
-
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -33,6 +33,7 @@ import { PostsListComponent } from './Components/posts/posts-list/posts-list.com
 import { PostFormComponent } from './Components/posts/post-form/post-form.component';
 import { ProfileComponent } from './Components/profile/profile.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FullscreenSpinnerComponent } from './Components/fullscreen-spinner/fullscreen-spinner.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     PostsListComponent,
     PostFormComponent,
     ProfileComponent,
+    FullscreenSpinnerComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,6 +73,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatSelectModule,
     MatTableModule,
     MatIconModule,
+    MatProgressSpinnerModule,
   ],
   providers: [
     {

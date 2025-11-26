@@ -1,0 +1,89 @@
+.home-wrapper {
+    padding: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .page-title {
+    text-align: center;
+    margin-bottom: 24px;
+    font-weight: 700;
+  }
+  
+  .empty-state {
+    text-align: center;
+  }
+  
+  .empty-content {
+    font-size: 16px;
+    color: #6b7280;
+  }
+  
+  .cards-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .post-card {
+    flex: 1 1 300px;
+    max-width: 360px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  }
+  
+  .post-avatar {
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    display: grid;
+    place-items: center;
+    color: white;
+  }
+  
+  .post-image {
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .post-description {
+    color: #4b5563;
+    line-height: 1.5;
+  }
+  
+  .categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+  }
+  
+  .category-pill {
+    padding: 6px 10px;
+    border-radius: 16px;
+    font-size: 12px;
+    font-weight: 600;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .post-stats {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #374151;
+  }
+  
+  .flex-spacer {
+    flex: 1 1 auto;
+  }
+  
+  .card-animate {
+    will-change: opacity, transform;
+  }
+  
+  @media (max-width: 768px) {
+    .post-card {
+      flex-basis: 100%;
+      max-width: 100%;
+    }
+  }

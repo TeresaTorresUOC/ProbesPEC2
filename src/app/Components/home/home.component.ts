@@ -6,11 +6,20 @@ import { SharedService } from '../../Services/shared.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app.reducer';
 import { selectAuthState } from '../../auth/selectors/auth.selectors';
+import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
+  animations: [
+    trigger('cardAnimation', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(10px)' }),
+        animate('400ms {{delay}}ms ease-out', style({ opacity: 1, transform: 'translateY(0)' })),
+      ], { params: { delay: 0 } }),
+    ]),
+  ],
 })
 export class HomeComponent implements OnInit {
   posts!: PostDTO[];
@@ -25,17 +34,13 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-   
-    this.store.select(selectAuthState).subscribe((auth) => {
-     
+      this.store.select(selectAuthState).subscribe((auth) => {
       this.showButtons = !!auth.credentials;
       this.userId = auth.credentials?.userId ?? null;
     });
 
-   
     this.loadPosts();
   }
-
   private loadPosts(): void {
     this.postService.getPosts().subscribe({
       next: (posts) => (this.posts = posts),
@@ -44,7 +49,7 @@ export class HomeComponent implements OnInit {
   }
 
   like(postId: string): void {
-    if (!this.userId) return; 
+    if (!this.userId) return;
 
     this.postService.likePost(postId).subscribe({
       next: () => this.loadPosts(),
@@ -59,5 +64,9 @@ export class HomeComponent implements OnInit {
       next: () => this.loadPosts(),
       error: (error) => this.sharedService.errorLog(error),
     });
+  }
+
+  getPostImage(post: PostDTO, index: number): string {
+    return `https://picsum.photos/seed/${post.id ?? index}/600/350`;
   }
 }

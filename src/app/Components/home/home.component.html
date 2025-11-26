@@ -1,51 +1,78 @@
-<!-- TODO 3 -->
-<div class="container">
-  <h1 class="mb-4 text-center">Últimos posts</h1>
+<div class="home-wrapper">
+  <h1 class="page-title">Últimos posts</h1>
 
-  <div *ngIf="!posts || posts.length === 0" class="alert alert-info text-center">
-    No hay posts disponibles por el momento.
-  </div>
+  <mat-card *ngIf="!posts || posts.length === 0" class="empty-state">
+    <mat-card-content class="empty-content">
+      No hay posts disponibles por el momento.
+    </mat-card-content>
+  </mat-card>
+  
+  <div class="cards-grid" *ngIf="posts && posts.length > 0">
+    <mat-card
+      class="post-card card-animate"
+      *ngFor="let post of posts; let i = index"
+      [@cardAnimation]="{ value: '', params: { delay: i * 100 } }"
+    >
+      <mat-card-header>
+        <div mat-card-avatar class="post-avatar">
+          <mat-icon>article</mat-icon>
+        </div>
+        <mat-card-title>{{ post.title }}</mat-card-title>
+        <mat-card-subtitle>
+          Publicado el: {{ post.publication_date | date: 'dd/MM/yyyy' }} — Autor:
+          <strong>{{ post.userAlias }}</strong>
+        </mat-card-subtitle>
+      </mat-card-header>
 
-  <div *ngFor="let post of posts" class="card mb-4 shadow-sm">
-    <div class="card-body">
-      <h2 class="card-title">{{ post.title }}</h2>
-      <p class="card-text">{{ post.description }}</p>
+      <img
+        mat-card-image
+        [src]="getPostImage(post, i)"
+        [alt]="post.title"
+        class="post-image"
+      />
 
-      <div class="text-muted mb-2">
-        Publicado el: {{ post.publication_date | date: 'dd/MM/yyyy' }}  
-        — Autor: <strong>{{ post.userAlias }}</strong>
-      </div>
+      <mat-card-content>
+        <p class="post-description">{{ post.content || post.description }}</p>
 
-      <div class="mb-2">
-        <span
-          *ngFor="let category of post.categories"
-          class="badge me-2"
-          [ngStyle]="{ 'background-color': category.css_color, color: 'white' }"
-        >
-          {{ category.title }}
-        </span>
-      </div>
+        <div class="categories">
+          <span
+            *ngFor="let category of post.categories"
+            class="category-pill"
+            [ngStyle]="{ 'background-color': category.css_color, color: 'white' }"
+          >
+            {{ category.title }}
+          </span>
+        </div>
+      </mat-card-content>
 
-     
-      <div class="d-flex align-items-center mb-2">
-        <span class="me-3"> {{ post.num_likes }}</span>
-        <span class="me-3"> {{ post.num_dislikes }}</span>
-      </div>
+      <mat-card-actions align="end">
+        <div class="post-stats">
+          <mat-icon color="primary">thumb_up</mat-icon>
+          <span>{{ post.num_likes || 0 }}</span>
+          <mat-icon color="warn">thumb_down</mat-icon>
+          <span>{{ post.num_dislikes || 0 }}</span>
+        </div>
 
-      <div *ngIf="showButtons" class="mt-3 text-center">
+         <span class="flex-spacer"></span>
+
         <button
-          class="btn btn-success me-2"
-          (click)="like(post.id || post.id)"
-        >
-           Like
+         *ngIf="showButtons"
+         mat-stroked-button
+          color="primary"
+          (click)="like(post.id || post.id)" >
+          <mat-icon>thumb_up</mat-icon>
+          Like
         </button>
         <button
-          class="btn btn-danger"
+        *ngIf="showButtons"
+        mat-stroked-button
+        color="warn"
           (click)="dislike(post.id || post.id)"
         >
+        <mat-icon>thumb_down</mat-icon>
           Dislike
         </button>
-      </div>
-    </div>
+      </mat-card-actions>
+    </mat-card>
   </div>
 </div>

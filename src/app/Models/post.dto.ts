@@ -4,6 +4,7 @@ export class PostDTO {
   id!: string;
   title: string;
   description: string;
+  content?: string;
   num_likes: number;
   num_dislikes!: number;
   publication_date: Date;

@@ -46,11 +46,13 @@
       "birth_date": "2025-11-07"
     },
     {
-      "id": "5130",
       "name": "carla",
+      "surname_1": "Rodena",
+      "alias": "Carlar",
+      "birth_date": "2025-11-07",
       "email": "root@root.com",
       "password": "Elartedelmar3$",
-      "birth_date": "2025-11-07"
+      "id": "5130"
     },
     {
       "id": "732a",
@@ -78,8 +80,8 @@
       "id": "1",
       "title": "Primer post",
       "description": "Això és un post de prova.",
-      "num_likes": 0,
-      "num_dislikes": 0,
+      "num_likes": 1,
+      "num_dislikes": 1,
       "publication_date": "2025-11-07",
       "userId": 1
     },
@@ -91,7 +93,9 @@
       "categoriesSelected": [
         null
       ],
-      "userId": "8df1"
+      "userId": "8df1",
+      "num_likes": 1,
+      "num_dislikes": 2
     },
     {
       "id": "27c6",
@@ -99,11 +103,9 @@
       "description": "dsps",
       "publication_date": "2025-11-10",
       "categoriesSelected": [
-        null
+        ""
       ],
-      "userId": null,
-      "num_likes": 0,
-      "num_dislikes": 0
+      "userId": "5130"
     }
   ],
   "categories": [
@@ -155,6 +157,14 @@
       "description": "dsadsa",
       "css_color": "#21323",
       "userId": "8df1"
+    },
+    {
+      "id": "debc",
+      "categoryId": "",
+      "title": "djksd",
+      "description": "fdfsd",
+      "css_color": "#A1B2C3",
+      "userId": "5130"
     }
   ]
 }

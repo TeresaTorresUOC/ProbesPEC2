@@ -13,6 +13,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -24,7 +25,6 @@ import { AuthInterceptorService } from '../app/auth/inspectors/auth.inspector.se
 import { AuthModule } from './auth/auth.module';
 
 import { HeaderComponent } from './Components/header/header.component';
-import { FooterComponent } from './Components/footer/footer.component';
 import { HomeComponent } from './Components/home/home.component';
 import { RegisterComponent } from './Components/register/register.component';
 import { CategoriesListComponent } from './Components/categories/categories-list/categories-list.component';
@@ -39,7 +39,6 @@ import { FullscreenSpinnerComponent } from './Components/fullscreen-spinner/full
   declarations: [
     AppComponent,
     HeaderComponent,
-    FooterComponent,
     HomeComponent,
     RegisterComponent,
     CategoriesListComponent,
@@ -69,6 +68,7 @@ import { FullscreenSpinnerComponent } from './Components/fullscreen-spinner/full
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    MatToolbarModule,
     MatCardModule,
     MatSelectModule,
     MatTableModule,

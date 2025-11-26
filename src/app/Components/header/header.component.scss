@@ -1,0 +1,18 @@
+:host {
+    display: block;
+  }
+  
+  .spacer {
+    flex: 1 1 auto;
+  }
+  
+  .logo {
+    font-weight: 600;
+    cursor: pointer;
+  }
+  
+  mat-toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }

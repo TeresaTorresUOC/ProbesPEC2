@@ -1,20 +1,12 @@
-<p>header works!</p>
-
-<!-- NO AUTH REQUIRED -->
-<div *ngIf="showNoAuthSection">
-  <button (click)="home()">Home</button>
-  <button (click)="login()">Login</button>
-  <button (click)="register()">Register</button>
-</div>
-
-<!-- AUTH REQUIRED -->
-<div *ngIf="showAuthSection">
-  <button (click)="home()">Home</button>
-  <button (click)="adminPosts()">Admin posts</button>
-  <button (click)="adminCategories()">Admin categories</button>
-  <button (click)="profile()">Profile</button>
-  <button (click)="dashboard()">Dashboard</button>
-  <button (click)="logout()">Logout</button>
-  
-</div>
-
+<mat-toolbar color="primary">
+  <span class="logo" routerLink="/home">Probes Blog</span>
+  <span class="spacer"></span>
+  <button mat-button routerLink="/home">Home</button>
+  <button mat-button routerLink="/user/posts" *ngIf="showAuthSection">Posts</button>
+  <button mat-button routerLink="/user/categories" *ngIf="showAuthSection">Categories</button>
+  <button mat-button routerLink="/profile" *ngIf="showAuthSection">Profile</button>
+  <button mat-button routerLink="/dashboard" *ngIf="showAuthSection">Dashboard</button>
+  <button mat-button (click)="logout()" *ngIf="showAuthSection">Logout</button>
+  <button mat-button routerLink="/login" *ngIf="showNoAuthSection">Login</button>
+  <button mat-button routerLink="/register" *ngIf="showNoAuthSection">Register</button>
+</mat-toolbar>

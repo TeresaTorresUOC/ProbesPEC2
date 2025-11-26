@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AuthDTO } from '../models/auth.dto';
+import { environment } from '../../../environments/environment';
 
 interface UserRecord {
   id: string;
@@ -12,7 +13,7 @@ interface UserRecord {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private readonly urlBlogUocApi = 'http://localhost:3000/users';
+  private readonly urlBlogUocApi = `${environment.apiUrl.replace(/\/$/, '')}/users`;
 
   constructor(private http: HttpClient) {}
   login(credentials: { email: string; password: string }): Observable<AuthDTO> {

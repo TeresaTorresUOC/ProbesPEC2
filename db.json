@@ -61,6 +61,16 @@
       "alias": "Lola",
       "password": "Lola3R",
       "birth_date": "2025-07-10"
+    },
+    {
+      "id": "6ee9",
+      "name": "hola",
+      "email": "hola@root.com",
+      "surname_1": "hola ",
+      "surname_2": "",
+      "alias": "hola",
+      "password": "123456",
+      "birth_date": "2019-04-11"
     }
   ],
   "posts": [

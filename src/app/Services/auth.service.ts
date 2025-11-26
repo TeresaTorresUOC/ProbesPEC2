@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { AuthDTO } from '../Models/auth.dto';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 
 interface AuthToken {
@@ -18,8 +19,9 @@ export class AuthService {
   private controller: string;
 
   constructor(private http: HttpClient) {
-    this.controller = 'users'; 
-    this.urlBlogUocApi = 'http://localhost:3000/' + this.controller;
+    this.controller = 'users';
+    const baseUrl = environment.apiUrl.replace(/\/$/, '');
+    this.urlBlogUocApi = `${baseUrl}/${this.controller}`;
   }
 
   login(auth: AuthDTO): Observable<AuthToken> {

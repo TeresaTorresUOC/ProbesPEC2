@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { PostDTO } from '../Models/post.dto';
 import { switchMap } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,8 @@ export class PostService {
 
   constructor(private http: HttpClient) {
     this.controller = 'posts';
-    this.urlBlogUocApi = 'http://localhost:3000/' + this.controller;
+    const baseUrl = environment.apiUrl.replace(/\/$/, '');
+    this.urlBlogUocApi = `${baseUrl}/${this.controller}`;
   }
 
   //TODO 22 

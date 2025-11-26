@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UserDTO } from '../Models/user.dto';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,8 @@ export class UserService {
 
   constructor(private http: HttpClient) {
     this.controller = 'users';
-    this.urlBlogUocApi = 'http://localhost:3000/' + this.controller;
+    const baseUrl = environment.apiUrl.replace(/\/$/, '');
+    this.urlBlogUocApi = `${baseUrl}/${this.controller}`;
   }
 
 

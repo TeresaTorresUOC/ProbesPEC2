@@ -21,7 +21,7 @@
     <mat-card-content>
       <p class="post-description">{{ item.content || item.description }}</p>
   
-      <div class="categories" *ngIf="item.categories?.length">
+      <div class="categories" *ngIf="item.categories.length">
         <span
           *ngFor="let category of item.categories"
           class="category-pill"

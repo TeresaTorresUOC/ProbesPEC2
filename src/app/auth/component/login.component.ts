@@ -1,11 +1,8 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app.reducer';
-import { AuthService } from '../services/auth.service';
 import * as AuthActions from '../actions/auth.actions';
-import { SharedService } from '../../Services/shared.service';
 
 @Component({
   selector: 'app-login',
@@ -19,9 +16,6 @@ export class LoginComponent {
 
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService,
-    private sharedService: SharedService,
-    private router: Router,
     private store: Store<AppState>
   ) {
     this.loginForm = this.fb.group({
@@ -29,13 +23,14 @@ export class LoginComponent {
       password: ['', [Validators.required]],
     });
   }
-  get email() {
-    return this.loginForm.get('email');
+      get email(): FormControl {
+        return this.loginForm.get('email') as FormControl;
   }
 
-  get password() {
-    return this.loginForm.get('password');
+      get password(): FormControl {
+        return this.loginForm.get('password') as FormControl;
   }
+  
   onSubmit(): void {
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();

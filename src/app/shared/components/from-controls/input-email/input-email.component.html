@@ -1,0 +1,14 @@
+<mat-form-field class="w-100 mb-3">
+    <mat-label>{{ label }}</mat-label>
+    <input
+      matInput
+      type="email"
+      [formControl]="control"
+      [placeholder]="placeholder"
+      autocomplete="email"
+    />
+  
+    <mat-error *ngIf="control.invalid && (control.dirty || control.touched)">
+      {{ errorMessage || 'Correo electrónico no válido' }}
+    </mat-error>
+  </mat-form-field>

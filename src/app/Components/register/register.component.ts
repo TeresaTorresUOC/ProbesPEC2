@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { formatDate } from '@angular/common';
 import { Router } from '@angular/router';
-import {FormBuilder,FormGroup,Validators,ReactiveFormsModule,} from '@angular/forms';
+import {FormBuilder,FormControl,FormGroup,Validators,} from '@angular/forms';
 import { HeaderMenusService } from '../../Services/header-menus.service';
 import { SharedService } from '../../Services/shared.service';
 import { UserService } from '../../Services/user.service';
 import { HeaderMenus } from '../../Models/header-menus.dto';
 import { optionalMinLengthValidator } from '../../Validators/optional-min-length.validator';
-
 
 import { forkJoin, EMPTY } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
@@ -38,8 +36,11 @@ export class RegisterComponent implements OnInit {
       surname_2: ['', [optionalMinLengthValidator(3)]],
       alias: ['', [Validators.required, Validators.minLength(3)]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      birth_date: [formatDate(new Date(), 'yyyy-MM-dd', 'en')],
+      birth_date: [new Date()],
     });
+  }
+  getControl(controlName: string): FormControl {
+    return this.registerForm.get(controlName) as FormControl;
   }
 
   register(): void {
@@ -64,7 +65,6 @@ export class RegisterComponent implements OnInit {
     })
       .pipe(
         switchMap(({ emailUsers, nameUsers }) => {
-    
           if (emailUsers.length > 0) {
             this.isValidForm = false;
             this.sharedService.managementToast(
@@ -99,12 +99,11 @@ export class RegisterComponent implements OnInit {
             alias: '',
             email: '',
             password: '',
-            birth_date: formatDate(new Date(), 'yyyy-MM-dd', 'en'),
+            birth_date: new Date(),
           });
           this.router.navigateByUrl('home');
         },
         error: (error) => {
-      
           const headerInfo: HeaderMenus = {
             showAuthSection: false,
             showNoAuthSection: true,

@@ -1,12 +1,14 @@
-<p>dashboard works!</p>
 <div class="container text-center mt-4">
-    <h1>Dashboard</h1>
-    <p class="text-muted">Resumen global de la plataforma</p>
-  
-    <div class="card p-4 shadow-sm mt-4 mx-auto" style="max-width: 400px;">
-      <h4>Total de publicaciones: {{ posts.length }}</h4>
-      <h5 class="text-success mt-3">Total Likes: {{ totalLikes }}</h5>
-      <h5 class="text-danger">Total Dislikes: {{ totalDislikes }}</h5>
-    </div>
+  <h1>Dashboard</h1>
+  <p class="text-muted">Resumen global de la plataforma</p>
+
+  <div class="card p-4 shadow-sm mt-4 mx-auto" style="max-width: 400px;">
+    <h4>Total de publicaciones: {{ posts.length }}</h4>
+    <h5 class="text-success mt-3">Total Likes: {{ totalLikes }}</h5>
+    <h5 class="text-danger">Total Dislikes: {{ totalDislikes }}</h5>
   </div>
+  <div class="chart-container mt-4">
+    <canvas baseChart [data]="barChartData" [type]="'bar'"></canvas>
+  </div>
+</div>
   

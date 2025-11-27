@@ -94,7 +94,7 @@
         null
       ],
       "userId": "8df1",
-      "num_likes": 1,
+      "num_likes": 5,
       "num_dislikes": 2
     },
     {
@@ -105,7 +105,8 @@
       "categoriesSelected": [
         ""
       ],
-      "userId": "5130"
+      "userId": "5130",
+      "num_likes": 7
     }
   ],
   "categories": [

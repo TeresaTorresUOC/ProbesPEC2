@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { PostDTO } from '../../Models/post.dto';
 import { PostService } from '../../Services/post.service';
 import { SharedService } from '../../Services/shared.service';
@@ -29,18 +28,18 @@ export class HomeComponent implements OnInit {
   constructor(
     private postService: PostService,
     private sharedService: SharedService,
-    private router: Router,
     private store: Store<AppState>
   ) {}
 
   ngOnInit(): void {
-      this.store.select(selectAuthState).subscribe((auth) => {
+    this.store.select(selectAuthState).subscribe((auth) => {
       this.showButtons = !!auth.credentials;
       this.userId = auth.credentials?.userId ?? null;
     });
 
     this.loadPosts();
   }
+
   private loadPosts(): void {
     this.postService.getPosts().subscribe({
       next: (posts) => (this.posts = posts),
@@ -66,7 +65,4 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  getPostImage(post: PostDTO, index: number): string {
-    return `https://picsum.photos/seed/${post.id ?? index}/600/350`;
-  }
 }

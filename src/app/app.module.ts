@@ -17,10 +17,12 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { NgChartsModule } from 'ng2-charts';
 import { appReducers } from './app.reducer';
+import { SharedModule } from './shared/shared.module';
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthInterceptorService } from '../app/auth/inspectors/auth.inspector.service'; 
+import { AuthInterceptorService } from '../app/auth/inspectors/auth.inspector.service';
 
 import { AuthModule } from './auth/auth.module';
 
@@ -34,6 +36,7 @@ import { PostFormComponent } from './Components/posts/post-form/post-form.compon
 import { ProfileComponent } from './Components/profile/profile.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FullscreenSpinnerComponent } from './Components/fullscreen-spinner/fullscreen-spinner.component';
+import { DashboardComponent } from './Components/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +50,7 @@ import { FullscreenSpinnerComponent } from './Components/fullscreen-spinner/full
     PostFormComponent,
     ProfileComponent,
     FullscreenSpinnerComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,9 +66,9 @@ import { FullscreenSpinnerComponent } from './Components/fullscreen-spinner/full
       maxAge: 25,
       logOnly: false,
     }),
-
     
-    AuthModule, 
+    AuthModule,
+    SharedModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
@@ -74,6 +78,7 @@ import { FullscreenSpinnerComponent } from './Components/fullscreen-spinner/full
     MatTableModule,
     MatIconModule,
     MatProgressSpinnerModule,
+    NgChartsModule,
   ],
   providers: [
     {

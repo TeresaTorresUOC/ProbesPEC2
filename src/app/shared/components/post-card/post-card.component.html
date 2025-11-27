@@ -1,0 +1,58 @@
+<mat-card class="post-card">
+    <mat-card-header>
+      <div mat-card-avatar class="post-avatar">
+        <mat-icon>article</mat-icon>
+      </div>
+      <mat-card-title>{{ item.title }}</mat-card-title>
+      <mat-card-subtitle>
+        Publicado el: {{ item.publication_date | date: 'dd/MM/yyyy' }}
+        <ng-container *ngIf="item.userAlias">— Autor: <strong>{{ item.userAlias }}</strong></ng-container>
+      </mat-card-subtitle>
+    </mat-card-header>
+  
+    <img
+      mat-card-image
+      *ngIf="postImageUrl"
+      [src]="postImageUrl"
+      [alt]="item.title"
+      class="post-image"
+    />
+  
+    <mat-card-content>
+      <p class="post-description">{{ item.content || item.description }}</p>
+  
+      <div class="categories" *ngIf="item.categories?.length">
+        <span
+          *ngFor="let category of item.categories"
+          class="category-pill"
+          [ngStyle]="{ 'background-color': category.css_color, color: 'white' }"
+        >
+          {{ category.title }}
+        </span>
+      </div>
+    </mat-card-content>
+  
+    <mat-card-actions align="end">
+      <ng-container *ngIf="!showButtons">
+        <span class="post-stats">
+          <mat-icon color="primary">thumb_up</mat-icon>
+          <span>{{ item.num_likes || 0 }}</span>
+        </span>
+        <span class="post-stats">
+          <mat-icon color="warn">thumb_down</mat-icon>
+          <span>{{ item.num_dislikes || 0 }}</span>
+        </span>
+      </ng-container>
+  
+      <ng-container *ngIf="showButtons">
+        <button mat-icon-button color="primary" (click)="onLike()" aria-label="Like post">
+          <mat-icon>thumb_up</mat-icon>
+        </button>
+        <span>{{ item.num_likes || 0 }}</span>
+        <button mat-icon-button color="warn" (click)="onDislike()" aria-label="Dislike post">
+          <mat-icon>thumb_down</mat-icon>
+        </button>
+        <span>{{ item.num_dislikes || 0 }}</span>
+      </ng-container>
+    </mat-card-actions>
+  </mat-card>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PostService } from '../../Services/post.service';
 import { PostDTO } from '../../Models/post.dto';
 import { SharedService } from '../../Services/shared.service';
+import { ChartConfiguration } from 'chart.js';
 
 
 @Component({
@@ -13,6 +14,17 @@ export class DashboardComponent implements OnInit {
   posts: PostDTO[] = [];
   totalLikes = 0;
   totalDislikes = 0;
+  barChartLabels: string[] = ['Likes', 'Dislikes'];
+  barChartData: ChartConfiguration<'bar'>['data'] = {
+    labels: this.barChartLabels,
+    datasets: [
+      {
+        label: 'Reaccions',
+        data: [0, 0],
+        backgroundColor: ['#4caf50', '#f44336'],
+      },
+    ],
+  };
 
   constructor(private postService: PostService, private sharedService: SharedService) {}
   ngOnInit(): void {
@@ -32,6 +44,16 @@ export class DashboardComponent implements OnInit {
           (sum, post) => sum + (post.num_dislikes || 0),
           0
         );
+        this.barChartData = {
+          labels: this.barChartLabels,
+          datasets: [
+            {
+              label: 'Reaccions',
+              data: [this.totalLikes, this.totalDislikes],
+              backgroundColor: ['#4caf50', '#f44336'],
+            },
+          ],
+        };
       },
       error: (error) => {
         this.sharedService.errorLog(error);

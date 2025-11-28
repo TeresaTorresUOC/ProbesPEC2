@@ -9,6 +9,6 @@ import { FormControl } from '@angular/forms';
 export class InputDateComponent {
   @Input() label!: string;
   @Input() control!: FormControl;
-  @Input() placeholder?: string;
+  @Input() placeholder: string = '';
   @Input() errorMessage?: string;
 }

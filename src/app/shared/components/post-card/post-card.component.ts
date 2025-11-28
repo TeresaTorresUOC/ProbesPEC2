@@ -2,10 +2,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { PostDTO } from '../../../Models/post.dto';
 
 @Component({
-  selector: 'app-post-card',
-  templateUrl: './post-card.component.html',
-  styleUrls: ['./post-card.component.css'],
-})
+    selector: 'app-post-card',
+    templateUrl: './post-card.component.html',
+    styleUrls: ['./post-card.component.scss'],
+  })
 export class PostCardComponent {
   @Input() item!: PostDTO;
   @Input() showButtons = true;

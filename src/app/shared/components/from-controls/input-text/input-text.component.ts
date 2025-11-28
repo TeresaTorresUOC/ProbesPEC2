@@ -10,6 +10,6 @@ export class InputTextComponent {
   @Input() label!: string;
   @Input() control!: FormControl;
   @Input() type: string = 'text';
-  @Input() placeholder?: string;
+  @Input() placeholder: string = '';
   @Input() errorMessage?: string;
 }

@@ -1,35 +1,30 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Injectable, signal } from '@angular/core';
 
 export interface NotificationMessage {
   type: 'success' | 'error' | 'info';
   text: string;
 }
 
-@Injectable({ providedIn: 'root' })
+@Injectable({
+  providedIn: 'root',
+})
 export class NotificationService {
-    private readonly _notification = new BehaviorSubject<NotificationMessage | null>(
-        null
-      );
 
-      get notification$(): Observable<NotificationMessage | null> {
-        return this._notification.asObservable();
+  notification = signal<NotificationMessage | null>(null);
+
+  showSuccess(text: string) {
+    this.notification.set({ type: 'success', text });
   }
 
-  showSuccess(text: string): void {
-    this._notification.next({ type: 'success', text });
+  showError(text: string) {
+    this.notification.set({ type: 'error', text });
   }
 
-  showError(text: string): void {
-    this._notification.next({ type: 'error', text });
+  showInfo(text: string) {
+    this.notification.set({ type: 'info', text });
   }
 
-  showInfo(text: string): void {
-    this._notification.next({ type: 'info', text });
+  clear() {
+    this.notification.set(null);
   }
-
-  clear(): void {
-    this._notification.next(null);
-  }
-
 }

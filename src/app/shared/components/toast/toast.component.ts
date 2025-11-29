@@ -1,8 +1,5 @@
-import { Component, OnDestroy, effect, signal } from '@angular/core';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { CommonModule } from '@angular/common';
+import { Component, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import {
   NotificationMessage,
   NotificationService,
@@ -10,29 +7,33 @@ import {
 
 @Component({
   selector: 'app-toast',
-  standalone: true,
-  imports: [CommonModule, MatCardModule, MatButtonModule, MatIconModule],
+  import { Component, OnDestroy } from '@angular/core';
+  import { Subscription } from 'rxjs';
   templateUrl: './toast.component.html',
   styleUrls: ['./toast.component.scss'],
 })
 export class ToastComponent implements OnDestroy {
-  notification = this.notificationService.notification;
-  show = signal(false);
+    notification: NotificationMessage | null = null;
+    show = false;
 
-  private hideTimeout: ReturnType<typeof setTimeout> | null = null;
+  private hideTimeout: ReturnType<typeof setTimeout> | null = null; 
+  private readonly subscription = new Subscription();
+
 
   constructor(private notificationService: NotificationService) {
-    effect(() => {
-      const message = this.notification();
+    this.subscription.add(
+        this.notificationService.notification$.subscribe((message) => {
+          this.notification = message;
 
-      if (message) {
-        this.show.set(true);
-        this.startAutoHide();
-      } else {
-        this.show.set(false);
-        this.clearTimeout();
-      }
-    });
+          if (message) {
+            this.show = true;
+            this.startAutoHide();
+          } else {
+            this.show = false;
+            this.clearTimeout();
+          }
+        })
+      );
   }
 
   iconFor(type: NotificationMessage['type']): string {
@@ -52,6 +53,7 @@ export class ToastComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.clearTimeout();
+    this.subscription.unsubscribe();
   }
 
   private startAutoHide(): void {

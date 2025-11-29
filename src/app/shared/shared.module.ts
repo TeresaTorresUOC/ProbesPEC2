@@ -22,6 +22,7 @@ import { ToastComponent } from './components/toast/toast.component';
     InputEmailComponent,
     InputPasswordComponent,
     InputDateComponent,
+    ToastComponent,
   ],
   imports: [
     CommonModule,
@@ -33,9 +34,10 @@ import { ToastComponent } from './components/toast/toast.component';
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    ToastComponent,
+   
   ],
   exports: [
+   
     PostCardComponent,
     InputTextComponent,
     InputEmailComponent,

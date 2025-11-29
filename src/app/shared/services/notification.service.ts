@@ -17,18 +17,16 @@ export class NotificationService {
     this._notification.set({ type: 'success', text });
   }
 
- 
   showError(text: string): void {
     this._notification.set({ type: 'error', text });
   }
-
 
   showInfo(text: string): void {
     this._notification.set({ type: 'info', text });
   }
 
- 
   clear(): void {
     this._notification.set(null);
   }
+
 }

@@ -1,0 +1,11 @@
+<div class="toast-container" *ngIf="notification() as message">
+    <mat-card class="toast-card" [ngClass]="[message.type, show() ? 'show' : '']">
+      <div class="toast-content">
+        <mat-icon aria-hidden="true">{{ iconFor(message.type) }}</mat-icon>
+        <span class="toast-text">{{ message.text }}</span>
+      </div>
+      <button mat-icon-button aria-label="Cerrar notificación" (click)="close()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-card>
+  </div>

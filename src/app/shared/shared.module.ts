@@ -13,32 +13,35 @@ import { InputTextComponent } from './components/form-controls/input-text/input-
 import { InputEmailComponent } from './components/form-controls/input-email/input-email.component';
 import { InputPasswordComponent } from './components/form-controls/input-password/input-password.component';
 import { InputDateComponent } from './components/form-controls/input-date/input-date.component';
+import { ToastComponent } from './components/toast/toast.component';
 
 @NgModule({
-    declarations: [
-        PostCardComponent,
-        InputTextComponent,
-        InputEmailComponent,
-        InputPasswordComponent,
-        InputDateComponent,
-      ],
-      imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        MatCardModule,
-        MatIconModule,
-        MatButtonModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-      ],
-      exports: [
-        PostCardComponent,
-        InputTextComponent,
-        InputEmailComponent,
-        InputPasswordComponent,
-        InputDateComponent,
-      ],
+  declarations: [
+    PostCardComponent,
+    InputTextComponent,
+    InputEmailComponent,
+    InputPasswordComponent,
+    InputDateComponent,
+  ],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatCardModule,
+    MatIconModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    ToastComponent,
+  ],
+  exports: [
+    PostCardComponent,
+    InputTextComponent,
+    InputEmailComponent,
+    InputPasswordComponent,
+    InputDateComponent,
+    ToastComponent,
+  ],
 })
 export class SharedModule {}

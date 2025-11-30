@@ -62,16 +62,16 @@ export class PostsListComponent {
     const confirmDelete = confirm('¿Seguro que quieres eliminar el post con id ' + postId + '?');
     if (!confirmDelete) return;
 
-    this.notificationService.showInfo('Eliminant post...');
+    this.notificationService.showInfo('Guardando cambios...');
     this.postService.deletePost(postId).subscribe({
       next: () => {
-        this.notificationService.showSuccess('Post eliminat correctament');
+        this.notificationService.showSuccess('Post eliminado');
         this.loadPosts();
       },
       error: (error) => {
         
         this.sharedService.errorLog(error);
-        this.notificationService.showError('Error en eliminar el post');
+        this.notificationService.showError('Error al eliminar el post');
       },
     });
   }

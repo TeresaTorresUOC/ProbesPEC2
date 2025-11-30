@@ -92,7 +92,7 @@ export class CategoryFormComponent implements OnInit {
         userId: this.userId,
       };
 
-      this.notificationService.showInfo('Actualitzant categoria...');
+      this.notificationService.showInfo('Guardando cambios...');
       this.categoryService.updateCategory(this.categoryId, updatedCategory).subscribe({
         next: () => {
           this.validRequest = true;
@@ -102,7 +102,7 @@ export class CategoryFormComponent implements OnInit {
         error: (error) => {
           this.validRequest = false;
           this.sharedService.errorLog(error);
-          this.notificationService.showError('Error en actualitzar la categoria');
+          this.notificationService.showError('Error al actualizar la categoría');
         },
       });
     }
@@ -119,17 +119,17 @@ export class CategoryFormComponent implements OnInit {
         userId: this.userId,
       };
 
-      this.notificationService.showInfo('Creant categoria...');
+      this.notificationService.showInfo('Guardando cambios...');
       this.categoryService.createCategory(newCategory).subscribe({
         next: () => {
           this.validRequest = true;
-          this.notificationService.showSuccess('Categoria creada correctament');
+          this.notificationService.showSuccess('Categoría creada correctamente');
           this.router.navigateByUrl('/user/categories');
         },
         error: (error) => {
           this.validRequest = false;
           this.sharedService.errorLog(error);
-          this.notificationService.showError('Error en crear la categoria');
+          this.notificationService.showError('Error al crear la categoría');
         },
       });
     }

@@ -49,7 +49,7 @@ export class RegisterComponent implements OnInit {
     if (this.registerForm.invalid) {
       this.isValidForm = false;
       this.registerForm.markAllAsTouched();
-      this.notificationService.showError('Revisa els camps obligatoris i torna-ho a provar.');
+      this.notificationService.showError('Error al guardar los datos');
       return;
     }
 
@@ -57,7 +57,7 @@ export class RegisterComponent implements OnInit {
     this.registerUser = this.registerForm.value;
     const { name, email } = this.registerForm.value;
 
-    this.notificationService.showInfo('Creant compte...');
+    this.notificationService.showInfo('Guardando cambios...');
 
     forkJoin({
       emailUsers: this.userService.getUsersByEmail(email),
@@ -67,14 +67,14 @@ export class RegisterComponent implements OnInit {
         switchMap(({ emailUsers, nameUsers }) => {
           if (emailUsers.length > 0) {
             this.isValidForm = false;
-            this.notificationService.showError('El correu electrònic ja està registrat.');
+            this.notificationService.showError('Error al guardar los datos');
 
             return EMPTY;
           }
 
           if (nameUsers.length > 0) {
             this.isValidForm = false;
-            this.notificationService.showError('El nom d’usuari ja està en ús.');
+            this.notificationService.showError('Error al guardar los datos');
             return EMPTY;
           }
 
@@ -83,7 +83,7 @@ export class RegisterComponent implements OnInit {
       )
       .subscribe({
         next: () => {
-          this.notificationService.showSuccess('Compte creat correctament');
+          this.notificationService.showSuccess('Registro completado');
           this.registerForm.reset({
             name: '',
             surname_1: '',
@@ -102,7 +102,7 @@ export class RegisterComponent implements OnInit {
           };
           this.headerMenusService.headerManagement.next(headerInfo);
           this.sharedService.errorLog(error);
-          this.notificationService.showError('S’ha produït un error en crear el compte.');
+          this.notificationService.showError('Error al guardar los datos');
         },
       });
   }

@@ -63,15 +63,15 @@ export class CategoriesListComponent {
     );
     if (!confirmDelete) return;
 
-    this.notificationService.showInfo('Eliminant categoria...');
+    this.notificationService.showInfo('Guardando cambios...');
     this.categoryService.deleteCategory(categoryId).subscribe({
       next: () => {
-         this.notificationService.showSuccess('Categoria eliminada correctament');
+        this.notificationService.showSuccess('Categoría eliminada');
         this.loadCategories();
       },
       error: (error) => {
         this.sharedService.errorLog(error);
-        this.notificationService.showError('Error en eliminar la categoria');
+        this.notificationService.showError('Error al eliminar la categoría');
       },
     });
   }

@@ -86,14 +86,14 @@ export class ProfileComponent implements OnInit {
     this.profileUser = this.profileForm.value;
 
     if (this.userId) {
-      this.notificationService.showInfo('Actualitzant perfil...');
+      this.notificationService.showInfo('Guardando cambios...');
       this.userService.updateUser(String(this.userId), this.profileUser).subscribe({
         next: () => {
-          this.notificationService.showSuccess('Perfil actualitzat correctament');
+          this.notificationService.showSuccess('Perfil actualizado correctamente');
         },
         error: (error) => {
           this.sharedService.errorLog(error);
-          this.notificationService.showError('Error en actualitzar el perfil');
+          this.notificationService.showError('Error al guardar los datos');
         },
       });
     }

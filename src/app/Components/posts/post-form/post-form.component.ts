@@ -53,7 +53,7 @@ export class PostFormComponent implements OnInit {
       categoriesSelected: this.categoriesSelected,
     });
 
-    // Ens subscrivim al userId del store
+  
     this.store.select(selectUserId).subscribe((id) => {
       if (id) this.userId = id;
     });
@@ -94,18 +94,18 @@ export class PostFormComponent implements OnInit {
   private editPost(): void {
     const postData = { id: this.postId, ...this.postForm.value, userId: this.userId };
 
-    this.notificationService.showInfo('Actualitzant post...');
+    this.notificationService.showInfo('Guardando cambios...');
 
     this.postService.updatePost(this.postId, postData).subscribe({
       next: () => {
         this.validRequest = true;
-        this.notificationService.showSuccess('Post actualitzat correctament');
+        this.notificationService.showSuccess('Post actualizado');
         this.router.navigateByUrl('/user/posts');
       },
       error: (error) => {
         this.validRequest = false;
         this.sharedService.errorLog(error);
-        this.notificationService.showError('Error en actualitzar el post');
+        this.notificationService.showError('Error al guardar los datos');
       },
     });
   }
@@ -120,18 +120,18 @@ export class PostFormComponent implements OnInit {
       postData.publication_date = formatDate(new Date(), 'yyyy-MM-dd', 'en');
     }
 
-    this.notificationService.showInfo('Creant post...');
+    this.notificationService.showInfo('Guardando cambios...');
 
     this.postService.createPost(postData).subscribe({
       next: () => {
         this.validRequest = true;
-        this.notificationService.showSuccess('Post creat correctament');
+        this.notificationService.showSuccess('Post creado correctamente');
         this.router.navigateByUrl('/user/posts');
       },
       error: (error) => {
         this.validRequest = false;
         this.sharedService.errorLog(error);
-        this.notificationService.showError('Error en crear el post');
+        this.notificationService.showError('Error al crear el post');
       },
     });
   }

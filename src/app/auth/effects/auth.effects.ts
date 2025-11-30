@@ -42,7 +42,7 @@ export class AuthEffects {
     () =>
       this.actions$.pipe(
         ofType(AuthActions.loginSuccess),
-        tap(() => this.notificationService.showSuccess('Sessió iniciada correctament'))
+        tap(() => this.notificationService.showSuccess('Login correcto, bienvenido/a'))
       ),
     { dispatch: false }
   );
@@ -51,7 +51,7 @@ export class AuthEffects {
     () =>
       this.actions$.pipe(
         ofType(AuthActions.loginFailure),
-        tap(() => this.notificationService.showError('Error d’autenticació. Revisa les credencials.'))
+        tap(() => this.notificationService.showError('Credenciales incorrectas'))
       ),
     { dispatch: false }
   );

@@ -33,7 +33,7 @@ export class LoginComponent {
 
     this.isSubmitting = true;
     this.errorMessage = '';
-    this.notificationService.showInfo('Iniciant sessió...');
+    this.notificationService.showInfo('Iniciando sesión...');
 
     const credentials = this.loginForm.value;
 
@@ -46,12 +46,12 @@ export class LoginComponent {
           })
         );
         this.isSubmitting = false;
-        this.notificationService.showSuccess('Sessió iniciada correctament');
+        this.notificationService.showSuccess('Login correcto, bienvenido/a');
       },
       error: () => {
-        this.errorMessage = 'Error d’autenticació. Revisa les credencials.';
+        this.errorMessage = 'Credenciales incorrectas';
         this.isSubmitting = false;
-        this.notificationService.showError('Error d’autenticació. Revisa les credencials.');
+        this.notificationService.showError('Credenciales incorrectas');
       }
     });
   }

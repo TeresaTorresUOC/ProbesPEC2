@@ -11,8 +11,8 @@ export class PostCardComponent {
   @Input() item!: PostDTO;
   @Input() showButtons = true;
 
-  @Output() like = new EventEmitter<string>();
-  @Output() dislike = new EventEmitter<string>();
+  @Output() like = new EventEmitter<PostDTO>();
+  @Output() dislike = new EventEmitter<PostDTO>();
 
   get displayCategories(): CategoryDTO[] {
     return this.item?.categories ?? [];
@@ -20,14 +20,14 @@ export class PostCardComponent {
 
 
   onLike(): void {
-    if (this.item?.id) {
-      this.like.emit(this.item.id);
+    if (this.item) {
+      this.like.emit(this.item);
     }
   }
 
   onDislike(): void {
-    if (this.item?.id) {
-      this.dislike.emit(this.item.id);
+    if (this.item) {
+      this.dislike.emit(this.item);
     }
   }
 

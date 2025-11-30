@@ -47,22 +47,28 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  onLike(postId: string): void {
+  onLike(post: PostDTO): void {
     if (!this.userId) return;
 
-    this.postService.likePost(postId).subscribe({
-      next: () => this.loadPosts(),
+    this.postService.likePost(post).subscribe({
+      next: (updatedPost) => this.replacePost(updatedPost),
       error: (error) => this.sharedService.errorLog(error),
     });
   }
 
-  onDislike(postId: string): void {
+  onDislike(post: PostDTO): void {
     if (!this.userId) return;
 
-    this.postService.dislikePost(postId).subscribe({
-      next: () => this.loadPosts(),
+    this.postService.dislikePost(post).subscribe({
+      next: (updatedPost) => this.replacePost(updatedPost),
       error: (error) => this.sharedService.errorLog(error),
     });
   }
+  private replacePost(updatedPost: PostDTO): void {
+    if (!this.posts?.length) return;
 
+    this.posts = this.posts.map((current) =>
+      current.id === updatedPost.id ? { ...current, ...updatedPost } : current
+    );
+  }
 }

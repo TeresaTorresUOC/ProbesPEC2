@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { PostDTO } from '../Models/post.dto';
-import { switchMap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -49,31 +48,23 @@ export class PostService {
   }
 
   //TODO 28 
-  likePost(postId: string): Observable<PostDTO> {
-    const id = encodeURIComponent(postId); 
-    return this.http.get<PostDTO>(`${this.urlBlogUocApi}/${id}`).pipe(
-      switchMap((post) => {
-        if (!post) throw new Error('Post no trobat');
-        const updatedPost = {
-          ...post,
-          num_likes: (post.num_likes || 0) + 1,
-        };
-        return this.http.put<PostDTO>(`${this.urlBlogUocApi}/${id}`, updatedPost);
-      })
-    );
+  likePost(post: PostDTO): Observable<PostDTO> {
+    const id = encodeURIComponent(post.id);
+    const updatedPost = {
+      ...post,
+      num_likes: (post.num_likes || 0) + 1,
+    };
+
+    return this.http.put<PostDTO>(`${this.urlBlogUocApi}/${id}`, updatedPost);
   }
   //TODO 29 
-  dislikePost(postId: string): Observable<PostDTO> {
-    const id = encodeURIComponent(postId);
-    return this.http.get<PostDTO>(`${this.urlBlogUocApi}/${id}`).pipe(
-      switchMap((post) => {
-        if (!post) throw new Error('Post no trobat');
-        const updatedPost = {
-          ...post,
-          num_dislikes: (post.num_dislikes || 0) + 1,
-        };
-        return this.http.put<PostDTO>(`${this.urlBlogUocApi}/${id}`, updatedPost);
-      })
-    );
+  dislikePost(post: PostDTO): Observable<PostDTO> {
+    const id = encodeURIComponent(post.id);
+    const updatedPost = {
+      ...post,
+      num_dislikes: (post.num_dislikes || 0) + 1,
+    };
+
+    return this.http.put<PostDTO>(`${this.urlBlogUocApi}/${id}`, updatedPost);
   }
 }

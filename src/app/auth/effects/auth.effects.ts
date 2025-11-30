@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { AuthService } from '../services/auth.service';
-import * as AuthActions from '../actions/auth.actions'; 
+import * as AuthActions from '../actions/auth.actions';
 import { map, mergeMap, catchError, tap } from 'rxjs/operators';
 import { of, EMPTY } from 'rxjs';
 import { AuthDTO } from '../models/auth.dto';
 import { LocalStorageService } from '../../Services/local-storage.service';
 import { ROOT_EFFECTS_INIT } from '@ngrx/effects';
+import { NotificationService } from '../../shared/services/notification.service';
 
 @Injectable()
 export class AuthEffects {
@@ -36,6 +37,25 @@ export class AuthEffects {
       ),
     { dispatch: false }
   );
+
+  loginSuccessToast$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AuthActions.loginSuccess),
+        tap(() => this.notificationService.showSuccess('Sessió iniciada correctament'))
+      ),
+    { dispatch: false }
+  );
+
+  loginFailureToast$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AuthActions.loginFailure),
+        tap(() => this.notificationService.showError('Error d’autenticació. Revisa les credencials.'))
+      ),
+    { dispatch: false }
+  );
+
 
   clearCredentials$ = createEffect(
     () =>
@@ -69,6 +89,7 @@ export class AuthEffects {
   constructor(
     private actions$: Actions,
     private authService: AuthService,
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
+    private notificationService: NotificationService
   ) {}
 }

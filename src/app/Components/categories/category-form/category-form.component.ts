@@ -7,6 +7,7 @@ import { SharedService } from '../../../Services/shared.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../app.reducer';
 import { selectUserId } from '../../../auth/selectors/auth.selectors';
+import { NotificationService } from '../../../shared/services/notification.service';
 
 @Component({
   selector: 'app-category-form',
@@ -31,7 +32,8 @@ export class CategoryFormComponent implements OnInit {
     private formBuilder: UntypedFormBuilder,
     private router: Router,
     private sharedService: SharedService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private notificationService: NotificationService
   ) {
     this.isValidForm = null;
     this.categoryId = this.activatedRoute.snapshot.paramMap.get('id');
@@ -89,15 +91,18 @@ export class CategoryFormComponent implements OnInit {
         css_color,
         userId: this.userId,
       };
+
+      this.notificationService.showInfo('Actualitzant categoria...');
       this.categoryService.updateCategory(this.categoryId, updatedCategory).subscribe({
         next: () => {
           this.validRequest = true;
-          this.sharedService.managementToast('categoryFeedback', true, undefined);
+          this.notificationService.showSuccess('Categoria actualitzada correctament');
           this.router.navigateByUrl('/user/categories');
         },
         error: (error) => {
           this.validRequest = false;
           this.sharedService.errorLog(error);
+          this.notificationService.showError('Error en actualitzar la categoria');
         },
       });
     }
@@ -113,15 +118,18 @@ export class CategoryFormComponent implements OnInit {
         css_color,
         userId: this.userId,
       };
+
+      this.notificationService.showInfo('Creant categoria...');
       this.categoryService.createCategory(newCategory).subscribe({
         next: () => {
           this.validRequest = true;
-          this.sharedService.managementToast('categoryFeedback', true, undefined);
+          this.notificationService.showSuccess('Categoria creada correctament');
           this.router.navigateByUrl('/user/categories');
         },
         error: (error) => {
           this.validRequest = false;
           this.sharedService.errorLog(error);
+          this.notificationService.showError('Error en crear la categoria');
         },
       });
     }

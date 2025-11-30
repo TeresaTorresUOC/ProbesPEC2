@@ -10,6 +10,7 @@ import { SharedService } from '../../../Services/shared.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../app.reducer';
 import { selectUserId } from '../../../auth/selectors/auth.selectors';
+import { NotificationService } from '../../../shared/services/notification.service';
 
 @Component({
   selector: 'app-post-form',
@@ -37,7 +38,8 @@ export class PostFormComponent implements OnInit {
     private formBuilder: UntypedFormBuilder,
     private sharedService: SharedService,
     private router: Router,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private notificationService: NotificationService
   ) {
     this.title = new FormControl('', [Validators.required, Validators.maxLength(55)]);
     this.description = new FormControl('', [Validators.required, Validators.maxLength(255)]);
@@ -92,16 +94,18 @@ export class PostFormComponent implements OnInit {
   private editPost(): void {
     const postData = { id: this.postId, ...this.postForm.value, userId: this.userId };
 
+    this.notificationService.showInfo('Actualitzant post...');
+
     this.postService.updatePost(this.postId, postData).subscribe({
       next: () => {
         this.validRequest = true;
-        this.sharedService.managementToast('postFeedback', true, undefined);
+        this.notificationService.showSuccess('Post actualitzat correctament');
         this.router.navigateByUrl('/user/posts');
       },
       error: (error) => {
         this.validRequest = false;
         this.sharedService.errorLog(error);
-        this.sharedService.managementToast('postFeedback', false, error);
+        this.notificationService.showError('Error en actualitzar el post');
       },
     });
   }
@@ -116,16 +120,18 @@ export class PostFormComponent implements OnInit {
       postData.publication_date = formatDate(new Date(), 'yyyy-MM-dd', 'en');
     }
 
+    this.notificationService.showInfo('Creant post...');
+
     this.postService.createPost(postData).subscribe({
       next: () => {
         this.validRequest = true;
-        this.sharedService.managementToast('postFeedback', true, undefined);
+        this.notificationService.showSuccess('Post creat correctament');
         this.router.navigateByUrl('/user/posts');
       },
       error: (error) => {
         this.validRequest = false;
         this.sharedService.errorLog(error);
-        this.sharedService.managementToast('postFeedback', false, error);
+        this.notificationService.showError('Error en crear el post');
       },
     });
   }

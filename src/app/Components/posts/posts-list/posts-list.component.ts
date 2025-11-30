@@ -7,6 +7,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../../app.reducer';
 import { selectUserId } from '../../../auth/selectors/auth.selectors';
 import { MatTableDataSource } from '@angular/material/table';
+import { NotificationService } from '../../../shared/services/notification.service';
 
 @Component({
   selector: 'app-posts-list',
@@ -29,7 +30,8 @@ export class PostsListComponent {
     private postService: PostService,
     private router: Router,
     private sharedService: SharedService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private notificationService: NotificationService
   ) {
     this.loadPosts();
   }
@@ -60,14 +62,16 @@ export class PostsListComponent {
     const confirmDelete = confirm('¿Seguro que quieres eliminar el post con id ' + postId + '?');
     if (!confirmDelete) return;
 
+    this.notificationService.showInfo('Eliminant post...');
     this.postService.deletePost(postId).subscribe({
       next: () => {
-        this.sharedService.managementToast('postFeedback', true, undefined);
+        this.notificationService.showSuccess('Post eliminat correctament');
         this.loadPosts();
       },
       error: (error) => {
-        this.sharedService.managementToast('postFeedback', false, error);
+        
         this.sharedService.errorLog(error);
+        this.notificationService.showError('Error en eliminar el post');
       },
     });
   }

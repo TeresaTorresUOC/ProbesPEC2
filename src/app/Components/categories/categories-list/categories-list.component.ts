@@ -7,6 +7,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../../app.reducer';
 import { selectUserId } from '../../../auth/selectors/auth.selectors';
 import { MatTableDataSource } from '@angular/material/table';
+import { NotificationService } from '../../../shared/services/notification.service';
 
 @Component({
   selector: 'app-categories-list',
@@ -28,7 +29,8 @@ export class CategoriesListComponent {
     private categoryService: CategoryService,
     private router: Router,
     private sharedService: SharedService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private notificationService: NotificationService
   ) {
     this.loadCategories();
   }
@@ -61,14 +63,15 @@ export class CategoriesListComponent {
     );
     if (!confirmDelete) return;
 
+    this.notificationService.showInfo('Eliminant categoria...');
     this.categoryService.deleteCategory(categoryId).subscribe({
       next: () => {
-        this.sharedService.managementToast('categoryFeedback', true, undefined);
+         this.notificationService.showSuccess('Categoria eliminada correctament');
         this.loadCategories();
       },
       error: (error) => {
-        this.sharedService.managementToast('categoryFeedback', false, error);
         this.sharedService.errorLog(error);
+        this.notificationService.showError('Error en eliminar la categoria');
       },
     });
   }

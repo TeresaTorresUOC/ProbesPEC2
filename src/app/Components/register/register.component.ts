@@ -6,6 +6,7 @@ import { SharedService } from '../../Services/shared.service';
 import { UserService } from '../../Services/user.service';
 import { HeaderMenus } from '../../Models/header-menus.dto';
 import { optionalMinLengthValidator } from '../../Validators/optional-min-length.validator';
+import { NotificationService } from '../../shared/services/notification.service';
 
 import { forkJoin, EMPTY } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
@@ -25,7 +26,8 @@ export class RegisterComponent implements OnInit {
     private userService: UserService,
     private sharedService: SharedService,
     private headerMenusService: HeaderMenusService,
-    private router: Router
+    private router: Router,
+    private notificationService: NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -47,17 +49,15 @@ export class RegisterComponent implements OnInit {
     if (this.registerForm.invalid) {
       this.isValidForm = false;
       this.registerForm.markAllAsTouched();
-      this.sharedService.managementToast(
-        'registerFeedback',
-        false,
-        'Revisa los campos obligatorios e inténtalo de nuevo.'
-      );
+      this.notificationService.showError('Revisa els camps obligatoris i torna-ho a provar.');
       return;
     }
 
     this.isValidForm = true;
     this.registerUser = this.registerForm.value;
     const { name, email } = this.registerForm.value;
+
+    this.notificationService.showInfo('Creant compte...');
 
     forkJoin({
       emailUsers: this.userService.getUsersByEmail(email),
@@ -67,22 +67,14 @@ export class RegisterComponent implements OnInit {
         switchMap(({ emailUsers, nameUsers }) => {
           if (emailUsers.length > 0) {
             this.isValidForm = false;
-            this.sharedService.managementToast(
-              'registerFeedback',
-              false,
-              'El correo electrónico ya está registrado.'
-            );
+            this.notificationService.showError('El correu electrònic ja està registrat.');
 
             return EMPTY;
           }
 
           if (nameUsers.length > 0) {
             this.isValidForm = false;
-            this.sharedService.managementToast(
-              'registerFeedback',
-              false,
-              'El nombre de usuario ya está en uso.'
-            );
+            this.notificationService.showError('El nom d’usuari ja està en ús.');
             return EMPTY;
           }
 
@@ -91,7 +83,7 @@ export class RegisterComponent implements OnInit {
       )
       .subscribe({
         next: () => {
-          this.sharedService.managementToast('registerFeedback', true, undefined);
+          this.notificationService.showSuccess('Compte creat correctament');
           this.registerForm.reset({
             name: '',
             surname_1: '',
@@ -110,7 +102,7 @@ export class RegisterComponent implements OnInit {
           };
           this.headerMenusService.headerManagement.next(headerInfo);
           this.sharedService.errorLog(error);
-          this.sharedService.managementToast('registerFeedback', false, error);
+          this.notificationService.showError('S’ha produït un error en crear el compte.');
         },
       });
   }

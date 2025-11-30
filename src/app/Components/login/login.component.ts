@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { login } from '../../auth/actions/auth.actions';
 import { AuthState } from '../../auth/reducers/auth.reducer';
 import { AuthService } from '../../auth/services/auth.service';
+import { NotificationService } from '../../shared/services/notification.service';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,8 @@ export class LoginComponent {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private store: Store<{ auth: AuthState }>
+    private store: Store<{ auth: AuthState }>,
+    private notificationService: NotificationService
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -31,6 +33,7 @@ export class LoginComponent {
 
     this.isSubmitting = true;
     this.errorMessage = '';
+    this.notificationService.showInfo('Iniciant sessió...');
 
     const credentials = this.loginForm.value;
 
@@ -43,10 +46,12 @@ export class LoginComponent {
           })
         );
         this.isSubmitting = false;
+        this.notificationService.showSuccess('Sessió iniciada correctament');
       },
       error: () => {
         this.errorMessage = 'Error d’autenticació. Revisa les credencials.';
         this.isSubmitting = false;
+        this.notificationService.showError('Error d’autenticació. Revisa les credencials.');
       }
     });
   }

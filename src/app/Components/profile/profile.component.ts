@@ -8,6 +8,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../app.reducer';
 import { selectUserId } from '../../auth/selectors/auth.selectors';
 import { optionalMinLengthValidator } from '../../Validators/optional-min-length.validator';
+import { NotificationService } from '../../shared/services/notification.service';
 
 @Component({
   selector: 'app-profile',
@@ -31,7 +32,8 @@ export class ProfileComponent implements OnInit {
     private formBuilder: UntypedFormBuilder,
     private userService: UserService,
     private sharedService: SharedService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private notificationService: NotificationService
   ) {
     this.profileUser = {} as UserDTO;
     this.isValidForm = null;
@@ -84,13 +86,14 @@ export class ProfileComponent implements OnInit {
     this.profileUser = this.profileForm.value;
 
     if (this.userId) {
+      this.notificationService.showInfo('Actualitzant perfil...');
       this.userService.updateUser(String(this.userId), this.profileUser).subscribe({
         next: () => {
-          this.sharedService.managementToast('profileFeedback', true, undefined);
+          this.notificationService.showSuccess('Perfil actualitzat correctament');
         },
         error: (error) => {
           this.sharedService.errorLog(error);
-          this.sharedService.managementToast('profileFeedback', false, error);
+          this.notificationService.showError('Error en actualitzar el perfil');
         },
       });
     }

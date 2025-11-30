@@ -47,7 +47,7 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  like(postId: string): void {
+  onLike(postId: string): void {
     if (!this.userId) return;
 
     this.postService.likePost(postId).subscribe({
@@ -56,7 +56,7 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  dislike(postId: string): void {
+  onDislike(postId: string): void {
     if (!this.userId) return;
 
     this.postService.dislikePost(postId).subscribe({

@@ -21,9 +21,9 @@
     <mat-card-content>
       <p class="post-description">{{ item.content || item.description }}</p>
   
-      <div class="categories" *ngIf="item.categories.length">
+      <div class="categories" *ngIf="displayCategories.length">
         <span
-          *ngFor="let category of item.categories"
+        *ngFor="let category of displayCategories"
           class="category-pill"
           [ngStyle]="{ 'background-color': category.css_color, color: 'white' }"
         >

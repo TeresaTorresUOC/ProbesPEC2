@@ -13,8 +13,8 @@
       *ngFor="let post of posts; let i = index"
       [item]="post"
       [showButtons]="showButtons"
-      (like)="like($event)"
-      (dislike)="dislike($event)"
+      (like)="onLike($event)"
+      (dislike)="onDislike($event)"
       [@cardAnimation]="{ value: '', params: { delay: i * 100 } }"
       ></app-post-card>
   </div>

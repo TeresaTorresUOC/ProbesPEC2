@@ -107,6 +107,18 @@
       ],
       "userId": "5130",
       "num_likes": 7
+    },
+    {
+      "id": "fcf9",
+      "title": "dsafkdsf",
+      "description": "sfsdfsdf",
+      "publication_date": "2025-07-01",
+      "categoriesSelected": [
+        ""
+      ],
+      "userId": "5130",
+      "num_likes": 0,
+      "num_dislikes": 0
     }
   ],
   "categories": [
@@ -165,6 +177,14 @@
       "title": "djksd",
       "description": "fdfsd",
       "css_color": "#A1B2C3",
+      "userId": "5130"
+    },
+    {
+      "id": "f21e",
+      "categoryId": "",
+      "title": "aadsd",
+      "description": "sdsdfsadas",
+      "css_color": "#F02132",
       "userId": "5130"
     }
   ]
